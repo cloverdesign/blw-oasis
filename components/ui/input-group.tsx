@@ -8,18 +8,45 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 
-function InputGroup({ className, ...props }: React.ComponentProps<"div">) {
+const inputGroupVariants = cva(
+  "group/input-group border-input dark:bg-input/30 relative flex w-full items-center border transition-[color,box-shadow] outline-none min-w-0",
+  {
+    variants: {
+      shape: {
+        default: "rounded-md",
+        pill: "rounded-full",
+      },
+      size: {
+        default: "min-h-[2.75rem] has-[>textarea]:min-h-16",
+        sm: "h-9 has-[>textarea]:h-auto",
+      },
+    },
+    defaultVariants: {
+      shape: "default",
+      size: "default",
+    },
+  }
+)
+
+function InputGroup({
+  className,
+  shape = "default",
+  size = "default",
+  ...props
+}: React.ComponentProps<"div"> & VariantProps<typeof inputGroupVariants>) {
   return (
     <div
       data-slot="input-group"
+      data-shape={shape}
+      data-size={size}
       role="group"
       className={cn(
-        "group/input-group border-input dark:bg-input/30 relative flex w-full items-center rounded-md border shadow-xs transition-[color,box-shadow] outline-none",
-        "h-9 min-w-0 has-[>textarea]:h-auto",
+        inputGroupVariants({ shape, size }),
 
         // Variants based on alignment.
         "has-[>[data-align=inline-start]]:[&>input]:pl-2",
         "has-[>[data-align=inline-end]]:[&>input]:pr-2",
+        "has-[>[data-align=inline-end-flush]]:[&>input]:pr-0",
         "has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-start]]:[&>input]:pb-3",
         "has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3",
 
@@ -28,6 +55,9 @@ function InputGroup({ className, ...props }: React.ComponentProps<"div">) {
 
         // Error state.
         "has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40",
+
+        // Size-specific input padding.
+        "data-[size=sm]:[&_[data-slot=input-group-control]]:py-2",
 
         className
       )}
@@ -45,6 +75,8 @@ const inputGroupAddonVariants = cva(
           "order-first pl-3 has-[>button]:ml-[-0.45rem] has-[>kbd]:ml-[-0.35rem]",
         "inline-end":
           "order-last pr-3 has-[>button]:mr-[-0.45rem] has-[>kbd]:mr-[-0.35rem]",
+        "inline-end-flush":
+          "order-last pl-2 pr-0 py-0 has-[>button]:mr-0 has-[>kbd]:mr-0",
         "block-start":
           "order-first w-full justify-start px-3 pt-3 [.border-b]:pb-3 group-has-[>input]/input-group:pt-2.5",
         "block-end":
@@ -80,7 +112,7 @@ function InputGroupAddon({
 }
 
 const inputGroupButtonVariants = cva(
-  "text-sm shadow-none flex gap-2 items-center",
+  "text-sm shadow-none flex gap-2 items-center shrink-0",
   {
     variants: {
       size: {
@@ -89,6 +121,7 @@ const inputGroupButtonVariants = cva(
         "icon-xs":
           "size-6 rounded-[calc(var(--radius)-5px)] p-0 has-[>svg]:p-0",
         "icon-sm": "size-8 p-0 has-[>svg]:p-0",
+        "icon-pill": "size-10 rounded-full p-0 has-[>svg]:p-0 [&>svg:not([class*='size-'])]:size-5",
       },
     },
     defaultVariants: {

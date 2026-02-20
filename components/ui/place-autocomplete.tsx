@@ -292,6 +292,7 @@ function PlaceAutocomplete({
             loop>
             <div className="relative">
                 <InputGroup
+                    size="sm"
                     className={cn(
                         "border-input! bg-popover! ring-0!",
                         showCommandList && "rounded-b-none"
