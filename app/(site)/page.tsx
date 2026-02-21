@@ -21,12 +21,14 @@ export default async function Home() {
       <Who />
       <HeroGallery />
       <Events events={events} />
-      {/* <LiveSection
-        isLive={liveStatus.isLive}
-        liveVideoId={liveStatus.videoId}
-        liveTitle={liveStatus.title}
-        liveThumbnail={liveStatus.thumbnail}
-      /> */}
+      {liveStatus.isLive && (
+        <LiveSection
+          isLive={liveStatus.isLive}
+          liveVideoId={liveStatus.videoId}
+          liveTitle={liveStatus.title}
+          liveThumbnail={liveStatus.thumbnail}
+        />
+      )}
       <HomeMap locations={locations} />
     </main>
   );

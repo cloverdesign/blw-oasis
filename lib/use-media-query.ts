@@ -1,19 +1,28 @@
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from "react"
 
+const mqlCache = new Map<string, MediaQueryList>()
+
+function getMql(query: string): MediaQueryList | null {
+  if (typeof window === "undefined") return null
+  if (!mqlCache.has(query)) {
+    mqlCache.set(query, window.matchMedia(query))
+  }
+  return mqlCache.get(query) ?? null
+}
+
+/**
+ * SSR-safe media query hook. Returns false on the server and during initial hydration before layout.
+ */
 export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState(false)
-
-  useEffect(() => {
-    const mql = window.matchMedia(query)
-    setMatches(mql.matches)
-
-    function onChange(e: MediaQueryListEvent) {
-      setMatches(e.matches)
-    }
-
-    mql.addEventListener('change', onChange)
-    return () => mql.removeEventListener('change', onChange)
-  }, [query])
-
-  return matches
+  return useSyncExternalStore(
+    (callback) => {
+      const mql = getMql(query)
+      if (!mql) return () => {}
+      const handler = () => callback()
+      mql.addEventListener("change", handler)
+      return () => mql.removeEventListener("change", handler)
+    },
+    () => getMql(query)?.matches ?? false,
+    () => false
+  )
 }

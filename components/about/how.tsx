@@ -14,7 +14,7 @@ export const How = () => {
                     Oasis began with a simple but powerful conviction: that the gospel belongs on college campuses.
                     <br />
                     <br />
-                    When Pastor Deji moved to the United States for university, he began sharing the message of God's love with fellow students one conversation, one relationship, one campus at a time. What started as personal evangelism grew into organized fellowship, leadership development, and campus gatherings.
+                    When Pastor Deji moved to the United States for university, he began sharing the message of God&apos;s love with fellow students one conversation, one relationship, one campus at a time. What started as personal evangelism grew into organized fellowship, leadership development, and campus gatherings.
                     <br />
                     <br />
                     As students graduated, relocated, and carried the vision forward, Oasis expanded beyond a single campus into multiple states and universities. Today, Oasis continues to grow through intentional, student-led communities united by one mission and one message.

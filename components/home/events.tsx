@@ -33,15 +33,15 @@ export const Events = ({ events }: EventsProps) => {
     if (events.length === 0) return null
 
     return (
-        <section className="pt-44 flex flex-col items-center gap-10 lg:gap-20 mx-10">
+        <section className="py-44 flex flex-col items-center gap-10 lg:gap-20 mx-10">
             <div className="w-full px-4 lg:px-10 flex justify-center">
                 <div className="text-center w-[50%] lg:w-2/5 flex flex-col gap-8">
                     <h1 className="text-4xl lg:text-6xl capitalize">
-                        What's Happening <br /> at Oasis.
+                        What&apos;s Happening <br /> at Oasis.
                     </h1>
                     <p>
                         From campus gatherings to worship nights and conferences,
-                        there's always something happening at Oasis.
+                        there&apos;s always something happening at Oasis.
                     </p>
                 </div>
             </div>

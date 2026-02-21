@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from "next/image"
+import type { StaticImageData } from "next/image"
 import leader from "@/public/hero.png"
 
 export const Leadership = () => {
@@ -92,6 +92,8 @@ const LeadershipCard = ({
                     </clipPath>
                 </defs>
             </svg>}
+
+            <span className="text-sm text-muted-foreground hidden">{about}</span>
         </div>
     )
 }
