@@ -2,7 +2,6 @@
 
 import { useCallback, useRef, useState } from "react"
 import dynamic from "next/dynamic"
-import { MapPin } from "lucide-react"
 import { useMediaQuery } from "@/lib/use-media-query"
 import type { Location } from "@/sanity/lib/queries/locations"
 import { LocationPanel } from "./location-panel"

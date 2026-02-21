@@ -1,8 +1,8 @@
 "use client"
 
 import { forwardRef } from "react"
-import { ArrowUpRight, Mail, MapPin, Phone, Plus } from "lucide-react"
-import { ChurchSide, FavouriteBook } from "iconoir-react"
+import { Mail, MapPin, Phone } from "lucide-react"
+import { ArrowUpRight, ChurchSide, FavouriteBook, Plus } from "iconoir-react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { urlFor } from "@/sanity/lib/image"
@@ -103,7 +103,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             )}
           </div>
 
-          {/* <div className="flex gap-2 pt-1">
+          <div className="flex gap-2 pt-1">
             {location.linkUrl && (
               <a
                 href={location.linkUrl}
@@ -126,7 +126,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                 <Plus className="size-4" />
               </a>
             )}
-          </div> */}
+          </div>
         </div>
       </div>
     )

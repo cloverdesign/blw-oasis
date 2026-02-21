@@ -74,7 +74,7 @@ interface PlaceSearchOptions {
 
 interface PlaceAutocompleteProps
     extends Omit<PlaceSearchOptions, "query">,
-        Omit<React.ComponentProps<"input">, "value" | "onChange"> {
+    Omit<React.ComponentProps<"input">, "value" | "onChange"> {
     debounceMs?: number
     value?: string
     defaultValue?: string
@@ -237,6 +237,7 @@ function usePlaceSearch({
         props.lon,
         props.zoom,
         props.locationBiasScale,
+        props
     ])
 
     return { results, isLoading, error, hasSearched }
@@ -334,7 +335,7 @@ function PlaceAutocomplete({
                         )}
                         {hasNoResults && (
                             <CommandEmpty>
-                                Can't find {displayValue}.
+                                Can&apos;t find {displayValue}.
                             </CommandEmpty>
                         )}
                         {results.length > 0 && (

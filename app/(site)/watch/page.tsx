@@ -14,12 +14,14 @@ export default async function WatchPage() {
         <main className="pt-20 lg:pt-36">
             <Hero />
             <FeaturedVideos videos={videos} />
-            <LiveSection
-                isLive={liveStatus.isLive}
-                liveVideoId={liveStatus.videoId}
-                liveTitle={liveStatus.title}
-                liveThumbnail={liveStatus.thumbnail}
-            />
+            {liveStatus.isLive && (
+                <LiveSection
+                    isLive={liveStatus.isLive}
+                    liveVideoId={liveStatus.videoId}
+                    liveTitle={liveStatus.title}
+                    liveThumbnail={liveStatus.thumbnail}
+                />
+            )}
         </main>
     )
 }
