@@ -13,7 +13,7 @@ export async function Hero() {
                         Oasis is made up of student-led fellowships across college campuses in North America, alongside church communities that operate both on campus and off campus in key regions.
                     </p>
                 </div>
-                <LocationMap locations={locations} mode="static" />
+                <LocationMap locations={locations} mode="static" showLoading={false} />
             </div>
         </section >
     )

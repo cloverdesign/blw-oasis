@@ -12,8 +12,8 @@ export default async function ChurchesPage() {
     return (
         <main>
             <Hero />
-            <ChurchesSection churches={churches} />
             <CampusesSection campuses={campuses} />
+            <ChurchesSection churches={churches} />
             <FindLocation />
         </main>
     )

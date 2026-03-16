@@ -20,6 +20,7 @@ interface MapViewProps {
   selectedId?: string | null
   onMarkerClick?: (id: string) => void
   filteredLocationIds?: string[]
+  showLoadingOverlay?: boolean
 }
 
 interface WithCoordinates {
@@ -99,6 +100,7 @@ export function MapView({
   selectedId = null,
   onMarkerClick,
   filteredLocationIds,
+  showLoadingOverlay = true,
 }: MapViewProps) {
   const [tilesLoaded, setTilesLoaded] = useState(false)
   const visibleLocations = useMemo(() => {
@@ -113,13 +115,22 @@ export function MapView({
     <MapContainer
       center={[39.8283, -98.5795]}
       zoom={4}
+      minZoom={2}
+      maxBounds={[
+        [-90, -180],
+        [90, 180],
+      ]}
+      maxBoundsViscosity={1.0}
       className="size-full"
+      style={{ backgroundColor: "#262626" }}
+      scrollWheelZoom={false}
       zoomControl={interactive}
       attributionControl={false}
     >
       <TileLayer
         url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
+        noWrap={true}
         eventHandlers={{
           load: () => setTilesLoaded(true),
         }}
@@ -149,14 +160,15 @@ export function MapView({
         )
       })}
 
-      <div
-        className={`absolute inset-0 z-1000 flex items-center justify-center rounded-3xl transition-opacity duration-300 ${
-          tilesLoaded ? "pointer-events-none opacity-0" : ""
-        }`}
-        aria-hidden
-      >
-        <MapLoadingPlaceholder className="absolute inset-0 rounded-3xl" />
-      </div>
+      {showLoadingOverlay && (
+        <div
+          className={`absolute inset-0 z-1000 flex items-center justify-center rounded-3xl transition-opacity duration-300 ${tilesLoaded ? "pointer-events-none opacity-0" : ""
+            }`}
+          aria-hidden
+        >
+          <MapLoadingPlaceholder className="absolute inset-0 rounded-3xl" />
+        </div>
+      )}
     </MapContainer>
   )
 }
