@@ -11,7 +11,7 @@ const navItems = [
     { label: "About", href: "/about" },
     { label: "Watch", href: "/watch" },
     { label: "Resources", href: "/resources" },
-    { label: "Churches", href: "/churches" },
+    { label: "Fellowship", href: "/fellowship" },
     { label: "Give", href: "/give" },
 ];
 
@@ -22,7 +22,7 @@ export default function Nav() {
     const lastScrollY = useRef(0);
 
     const pathname = usePathname();
-    const isChurchesPage = pathname.includes("/churches");
+    const isChurchesPage = pathname.includes("/fellowship");
 
     useEffect(() => {
         document.body.style.overflow = isOpen ? "hidden" : "";
@@ -86,14 +86,14 @@ export default function Nav() {
     return (
         <>
             <nav className={cn(
-                "fixed w-full z-[9999] flex justify-between items-center py-4 px-10",
+                "fixed w-full z-[9999] flex justify-between items-center py-1 px-10",
                 "transition-transform duration-300 ease-in-out",
                 isScrolled && "bg-background border border-secondary",
                 !isNavVisible && "-translate-y-full",
                 isChurchesPage && !isScrolled && "text-background",
             )}>
                 <Link href="/" className="flex items-center group">
-                    <Logo className="group-hover:text-primary" />
+                    <Logo className="group-hover:text-primary size-20" />
                 </Link>
 
                 {/* Desktop nav */}
@@ -128,7 +128,7 @@ export default function Nav() {
                 id="mobile-nav-panel"
                 data-state={isOpen ? "open" : "closed"}
                 className={cn(
-                    "fixed inset-x-0 top-0 z-50 bg-background px-10 pt-11 pb-8 shadow-lg border-b border-border",
+                    "fixed inset-x-0 top-0 z-[9999] bg-background px-10 pt-11 pb-8 shadow-lg border-b border-border",
                     "data-[state=open]:animate-in data-[state=closed]:animate-out",
                     "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
                     "data-[state=open]:slide-in-from-top-4 data-[state=closed]:slide-out-to-top-4",

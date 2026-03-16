@@ -65,9 +65,9 @@ export const Footer = () => {
     return (
         <footer className="p-4 lg:p-8 flex flex-col lg:gap-20 gap-16 mt-[250px]">
             {showCTA && <CTA />}
-            <section className="bg-secondary rounded-4xl px-4 lg:px-10 py-12 flex flex-col gap-20 justify-between">
+            <section className="bg-secondary rounded-4xl px-4 lg:px-10 py-8 flex flex-col gap-20 justify-between">
                 <div className="flex lg:flex-row flex-col-reverse justify-between items-center gap-16 px-16">
-                    <FooterLogo className="text-secondary-foreground scale-80 lg:scale-100" />
+                    <FooterLogo className="text-secondary-foreground scale-60 lg:scale-80" />
 
                     <div className="flex flex-wrap gap-16 lg:gap-32">
                         <LinkSection section={footerLinks[0]} />
@@ -119,6 +119,9 @@ function LinkSection({
 }
 
 const CTA = () => {
+    const newsletterFormAction = process.env.NEXT_PUBLIC_NEWSLETTER_FORM_ACTION;
+    const isNewsletterConfigured = Boolean(newsletterFormAction);
+
     return (
         <section className="flex flex-col justify-center items-center lg:gap-16 gap-8 text-center">
             <div className="flex flex-col gap-8 md:w-[50%] lg:w-[30%]">
@@ -128,18 +131,38 @@ const CTA = () => {
                 <p className="text-sm md:text-base">Stay informed about upcoming events, ministry opportunities, and inspiring stories from the Oasis community.</p>
             </div>
 
-            <InputGroup size="default" className="w-fit min-w-[300px] text-sm md:text-base">
-                <InputGroupInput placeholder="me@example.com" type="email" className="px-4 py-3 text-sm md:text-base" />
-                <InputGroupAddon align="inline-end-flush">
-                    <InputGroupButton
-                        type="submit"
-                        size="icon-pill"
-                        className="rounded-full bg-foreground text-background hover:bg-accent my-3 mx-4 group size-8"
-                    >
-                        <ArrowRight strokeWidth={2} className="size-4 text-background group-hover:text-accent-foreground" />
-                    </InputGroupButton>
-                </InputGroupAddon>
-            </InputGroup>
+            <form
+                action={isNewsletterConfigured ? newsletterFormAction : undefined}
+                method="POST"
+                onSubmit={!isNewsletterConfigured ? (e) => e.preventDefault() : undefined}
+                className="flex flex-col gap-3 items-center"
+            >
+                <input type="hidden" name="_subject" value="New BLW Oasis newsletter subscriber" />
+                <InputGroup size="default" className="w-fit min-w-[300px] text-sm md:text-base">
+                    <InputGroupInput
+                        placeholder="me@example.com"
+                        type="email"
+                        name="email"
+                        required
+                        className="px-4 py-3 text-sm md:text-base"
+                    />
+                    <InputGroupAddon align="inline-end-flush">
+                        <InputGroupButton
+                            type="submit"
+                            size="icon-pill"
+                            disabled={!isNewsletterConfigured}
+                            className="rounded-full bg-foreground text-background hover:bg-accent my-3 mx-4 group size-8"
+                        >
+                            <ArrowRight strokeWidth={2} className="size-4 text-background group-hover:text-accent-foreground" />
+                        </InputGroupButton>
+                    </InputGroupAddon>
+                </InputGroup>
+                {!isNewsletterConfigured && (
+                    <p className="text-xs text-destructive text-center">
+                        Newsletter form is not configured yet. Please set `NEXT_PUBLIC_NEWSLETTER_FORM_ACTION`.
+                    </p>
+                )}
+            </form>
         </section>
     )
 }

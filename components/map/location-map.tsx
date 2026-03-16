@@ -25,12 +25,21 @@ const MapView = dynamic(
   }
 )
 
+const MapViewNoLoading = dynamic(
+  () => import("./map-view").then((mod) => ({ default: mod.MapView })),
+  {
+    ssr: false,
+    loading: () => <div className="size-full bg-[#262626]" />,
+  }
+)
+
 interface LocationMapProps {
   locations: Location[]
   mode: "interactive" | "static"
+  showLoading?: boolean
 }
 
-export function LocationMap({ locations, mode }: LocationMapProps) {
+export function LocationMap({ locations, mode, showLoading = true }: LocationMapProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [panelOpen, setPanelOpen] = useState(true)
   const [filteredIds, setFilteredIds] = useState<string[]>(
@@ -56,9 +65,10 @@ export function LocationMap({ locations, mode }: LocationMapProps) {
   }, [])
 
   if (mode === "static") {
+    const Map = showLoading ? MapView : MapViewNoLoading
     return (
       <div className="size-full">
-        <MapView locations={locations} interactive={false} />
+        <Map locations={locations} interactive={false} showLoadingOverlay={showLoading} />
       </div>
     )
   }

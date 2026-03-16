@@ -11,13 +11,19 @@ const inputClass = cn(
 )
 
 export function ContactForm() {
+    const contactFormAction = process.env.NEXT_PUBLIC_CONTACT_FORM_ACTION
+    const isConfigured = Boolean(contactFormAction)
+
     return (
         <section className="px-4 lg:px-10 py-12 lg:py-20">
             <form
-                onSubmit={(e) => e.preventDefault()}
+                action={isConfigured ? contactFormAction : undefined}
+                method="POST"
+                onSubmit={!isConfigured ? (e) => e.preventDefault() : undefined}
                 className="max-w-3xl mx-auto flex flex-col gap-8"
                 aria-label="Contact form"
             >
+                <input type="hidden" name="_subject" value="New BLW Oasis contact inquiry" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="flex flex-col gap-2">
                         <label htmlFor="first-name" className="text-sm text-muted-foreground">
@@ -25,10 +31,11 @@ export function ContactForm() {
                         </label>
                         <Input
                             id="first-name"
-                            name="first-name"
+                            name="firstName"
                             type="text"
                             placeholder="First Name"
                             className={inputClass}
+                            required
                         />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -37,10 +44,11 @@ export function ContactForm() {
                         </label>
                         <Input
                             id="last-name"
-                            name="last-name"
+                            name="lastName"
                             type="text"
                             placeholder="Last Name"
                             className={inputClass}
+                            required
                         />
                     </div>
                 </div>
@@ -55,6 +63,7 @@ export function ContactForm() {
                             type="email"
                             placeholder="Email"
                             className={inputClass}
+                            required
                         />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -95,10 +104,15 @@ export function ContactForm() {
                     />
                 </div>
                 <div>
-                    <Button type="submit" variant="default">
+                    <Button type="submit" variant="default" disabled={!isConfigured}>
                         Send Message
                     </Button>
                 </div>
+                {!isConfigured && (
+                    <p className="text-sm text-destructive">
+                        Contact form is not configured yet. Please set `NEXT_PUBLIC_CONTACT_FORM_ACTION`.
+                    </p>
+                )}
             </form>
         </section>
     )

@@ -4,12 +4,12 @@ export const Faiths = () => {
     const faiths = [
         "The Bible is the inspired Word of God and the final authority for faith and life.",
         "There is one God eternally existing in three persons: Father, Son, and Holy Spirit.",
-        "In the deity of Jesus Christ — His virgin birth, sinless life, miracles, death, resurrection, and exaltation.",
-        "In the rapture of the Church and the second coming of Christ.",
-        "In repentance and salvation through faith in Jesus Christ.",
-        "In the sanctifying and empowering work of the Holy Spirit.",
-        "That believers are empowered by the Holy Spirit to live victorious Christian lives.",
-        "In eternal life for the saved and eternal judgment for the lost."
+        "We believe in the deity of Jesus Christ — His virgin birth, sinless life, miracles, death, resurrection, and exaltation.",
+        "We Believe in the rapture of the Church and the second coming of Christ.",
+        "We Believe in repentance and salvation through faith in Jesus Christ.",
+        "We Believe in the sanctifying and empowering work of the Holy Spirit.",
+        "We Believe that believers are empowered by the Holy Spirit to live victorious Christian lives.",
+        "We Believe in eternal life for the saved and eternal judgment for the lost."
     ]
     return (
         <section className="flex flex-col items-center gap-10 lg:gap-20  px-4 lg:px-8 mt-[144px]">
