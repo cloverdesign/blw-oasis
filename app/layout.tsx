@@ -14,8 +14,23 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "BLW Oasis",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://blwoasis.com"
+  ),
+  title: {
+    template: "%s | BLW Oasis",
+    default: "BLW Oasis",
+  },
   description: "Miracles Happen Here.",
+  openGraph: {
+    type: "website",
+    siteName: "BLW Oasis",
+    locale: "en_US",
+    images: [{ url: "/hero.webp" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({
