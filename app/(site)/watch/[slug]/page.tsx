@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
@@ -5,6 +6,28 @@ import { getVideoBySlug } from "@/sanity/lib/queries/videos"
 import { getYouTubeEmbedUrl } from "@/lib/youtube"
 
 type Params = Promise<{ slug: string }>
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Params
+}): Promise<Metadata> {
+    const { slug } = await params
+    const video = await getVideoBySlug(slug)
+
+    if (!video) return {}
+
+    return {
+        title: video.title,
+        description:
+            video.description || `Watch "${video.title}" on BLW Oasis.`,
+        openGraph: {
+            images: video.thumbnail?.asset?.url
+                ? [{ url: video.thumbnail.asset.url }]
+                : undefined,
+        },
+    }
+}
 
 export default async function VideoPage({ params }: { params: Params }) {
     const { slug } = await params
