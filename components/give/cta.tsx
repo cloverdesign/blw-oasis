@@ -10,7 +10,7 @@ export const CTA = () => {
                 </p>
                 <div>
                     <Button variant="primary" asChild>
-                        <Link href="#give-today">Give Now</Link>
+                        <a href="https://bit.ly/giveblwoasis">Give Now</a>
                     </Button>
                 </div>
             </div>

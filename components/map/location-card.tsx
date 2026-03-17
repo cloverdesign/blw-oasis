@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 import { urlFor } from "@/sanity/lib/image"
 import type { Location } from "@/sanity/lib/queries/locations"
 import { getLocationColor } from "./use-location-colors"
+import { CompassIcon } from "@phosphor-icons/react/dist/ssr"
 
 interface LocationCardProps {
   location: Location
@@ -77,7 +78,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
         </div>
 
         {/* Content */}
-        <div className="flex min-w-0 flex-1 flex-col gap-2">
+        <div className="flex min-w-0 flex-1 flex-col gap-2 relative">
           <h3 className="font-heading text-sm uppercase tracking-wide">
             {location.name}
           </h3>
@@ -103,7 +104,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             )}
           </div>
 
-          <div className="flex gap-2 pt-1">
+          <div className="flex gap-2 pt-1 absolute top-1 right-4">
             {location.linkUrl && (
               <a
                 href={location.linkUrl}
@@ -121,9 +122,9 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex size-8 items-center justify-center rounded-full bg-primary text-white transition-transform hover:scale-105"
+                className="flex size-8 items-center justify-center rounded-full bg-primary text-background transition-transform hover:scale-105"
               >
-                <Plus className="size-4" />
+                <CompassIcon className="size-4" />
               </a>
             )}
           </div>

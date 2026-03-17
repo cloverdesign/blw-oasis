@@ -4,6 +4,10 @@ import { useState } from "react"
 import type { StaticImageData } from "next/image"
 import leader from "@/public/hero.png"
 
+import pastorDebbie from "@/public/pastor-debbie.webp"
+import pastorJoshua from "@/public/pastor-joshua.webp"
+import pastorRuky from "@/public/pastor-ruky.webp"
+
 type Leader = {
     name: string
     role: string
@@ -12,29 +16,29 @@ type Leader = {
 }
 
 const leaders: Leader[] = [
-    { name: "Pastor Deji Olubusi", role: "Regional Secretary", about: "", image: leader },
-    { name: "Pastor Iris Akanji", role: "Zonal Pastor", about: "", image: leader },
+    { name: "Pastor Deji Olubusi", role: "Regional Secretary", about: "" },
+    { name: "Pastor Iris Akanji", role: "Zonal Pastor", about: "" },
     {
         name: "Pastor Debbie Onyibe",
         role: "Group Pastor & Lead, Global Missions & Media",
         about: "Hello :) I currently serve as the Group Pastor of Oasis Vanguards which is headquartered in Georgia. I also lead two of the most awesome teams at Oasis; Global Missions & Media, where I help shape the systems, teams, and strategies that drive our soul-winning work across campuses. I'm passionate about raising sharp, confident, Spirit-filled leaders who know their identity in Christ and are bold enough to change their world. My focus is simple: win souls, strengthen leaders, and create excellence everywhere we plant our feet.",
-        image: leader,
+        image: pastorDebbie,
     },
     {
         name: "Pastor Ruky Akpoghiran",
         role: "Group Pastor & PFCC Lead",
         about: "I serve as the Group Pastor of BLW Oasis Mega which is headquartered in New York, and the Head of the Pastoral Care Fellowship Coordinating Center. I'm inspired to win souls and see people encounter God for themselves, walk in their identity, and live out their lives in Christ. I'm also deeply passionate about raising leaders who fulfill God's dream for their lives.",
-        image: leader,
+        image: pastorRuky,
     },
     {
         name: "Pastor Joshua Adewolu",
         role: "Group Pastor",
         about: "I currently serve as the Group Pastor of BLW Oasis Trailblazers, which is headquartered in Massachusetts. I'm also an Engineering fellow who is passionate about mentoring young people to fulfill all of their God-given potential.",
-        image: leader,
+        image: pastorJoshua,
     },
-    { name: "Pastor Gradieu Kisala", role: "Group Pastor", about: "", image: leader },
-    { name: "Pastor Kome Igbogidi", role: "Group Pastor & Finance Lead", about: "", image: leader },
-    { name: "Pastor Stephen Aisedu", role: "Pastor, Oasis Missions", about: "", image: leader },
+    { name: "Pastor Gradieu Kisala", role: "Group Pastor", about: "" },
+    { name: "Pastor Kome Igbogidi", role: "Group Pastor & Finance Lead", about: "" },
+    { name: "Pastor Stephen Aisedu", role: "Pastor, Oasis Missions", about: "" },
 ]
 
 export const Leadership = () => {
@@ -45,7 +49,7 @@ export const Leadership = () => {
     }
 
     return (
-        <section className="mt-[144px] flex flex-col items-center gap-10 px-4 lg:gap-20 lg:px-8">
+        <section id="leadership" className="scroll-mt-24 mt-[144px] flex flex-col items-center gap-10 px-4 lg:gap-20 lg:px-8">
             <h2 className="text-center font-heading text-4xl capitalize lg:text-6xl">
                 Meet Our <br /> Leadership.
             </h2>
@@ -107,10 +111,10 @@ const LeadershipCard = ({
                 backgroundRepeat: "no-repeat",
             }}
         >
-            <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/75 via-black/35 to-black/10" />
+            {image && <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/95 via-black/15 to-black/5" />}
 
             {!image && (
-                <div className="absolute left-1/2 top-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-background/95 text-xl font-semibold text-foreground">
+                <div className="absolute left-1/2 top-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center text-6xl font-semibold text-background/20">
                     {initials}
                 </div>
             )}

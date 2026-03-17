@@ -1,5 +1,6 @@
 import Image from "next/image"
-import how from "@/public/how.png"
+import how from "@/public/how.webp"
+import { Reveal } from "../ui/reveal"
 
 export const How = () => {
     return (
@@ -7,7 +8,9 @@ export const How = () => {
             <div className="bg-accent text-accent-foreground flex flex-col lg:flex-row lg:items-center lg:gap-24 gap-10 rounded-4xl overflow-hidden pt-10">
                 <div className="flex flex-col lg:gap-10 lg:w-2/5">
                     <h2 className="px-10 lg:p-10 text-4xl lg:text-7xl capitalize whitespace-nowrap">How We <br /> Began.</h2>
-                    <Image src={how.src} alt="How We Began" width={700} height={700} className="rounded-4xl -ml-20 -rotate-[8deg] hidden lg:block" />
+                    <Reveal rotate={-6} className="hidden lg:block">
+                        <Image src={how.src} alt="How We Began" width={700} height={700} className="rounded-4xl -ml-20 -rotate-[8deg]" />
+                    </Reveal>
                 </div>
 
                 <p className="text-lg lg:text-2xl px-10 lg:p-16 lg:w-3/5">
@@ -20,7 +23,9 @@ export const How = () => {
                     As students graduated, relocated, and carried the vision forward, Oasis expanded beyond a single campus into multiple states and universities. Today, Oasis continues to grow through intentional, student-led communities united by one mission and one message.
                 </p>
 
-                <Image src={how.src} alt="How We Began" width={600} height={600} className="rounded-4xl -ml-20 -rotate-[8deg] block lg:hidden" />
+                <Reveal rotate={-6} className="block lg:hidden">
+                    <Image src={how.src} alt="How We Began" width={600} height={600} className="rounded-4xl -ml-20 -rotate-[8deg]" />
+                </Reveal>
             </div>
         </section>
     )

@@ -37,9 +37,12 @@ interface LocationMapProps {
   locations: Location[]
   mode: "interactive" | "static"
   showLoading?: boolean
+  scrollWheelZoom?: boolean
+  enableClustering?: boolean
+  showControls?: boolean
 }
 
-export function LocationMap({ locations, mode, showLoading = true }: LocationMapProps) {
+export function LocationMap({ locations, mode, showLoading = true, scrollWheelZoom, enableClustering, showControls }: LocationMapProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [panelOpen, setPanelOpen] = useState(true)
   const [filteredIds, setFilteredIds] = useState<string[]>(
@@ -87,6 +90,10 @@ export function LocationMap({ locations, mode, showLoading = true }: LocationMap
         selectedId={selectedId}
         onMarkerClick={handleMarkerClick}
         filteredLocationIds={filteredIds}
+        scrollWheelZoom={scrollWheelZoom}
+        enableClustering={enableClustering}
+        showControls={showControls}
+        controlsHidden={!panelOpen ? false : !isDesktop}
       />
 
       {/* Desktop: overlay panel */}

@@ -5,7 +5,7 @@ import { Button } from "../ui/button"
 
 export const Rhapsody = () => {
     return (
-        <section className="min-h-[70vh] px-4 lg:px-8 bg-foreground text-background grid grid-cols-1 lg:grid-cols-2 overflow-hidden pt-10 gap-10 relative">
+        <section id="rhapsody" className="scroll-mt-24 min-h-[70vh] px-4 lg:px-8 bg-foreground text-background grid grid-cols-1 lg:grid-cols-2 overflow-hidden pt-10 gap-10 relative">
             <Image src={rhapsody2.src} alt="How We Began" width={300} height={300} className="rounded-4xl -mt-12 rotate-20 absolute top-0 right-0 hidden lg:block" />
             <div className="flex flex-col justify-between lg:gap-10 lg:w-3/5 w-full">
                 <h2 className="lg:p-10 text-4xl lg:text-7xl capitalize whitespace-nowrap">

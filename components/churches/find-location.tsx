@@ -15,10 +15,10 @@ export function FindLocation() {
 
                 <div className="flex gap-4">
                     <Button variant="primary" asChild>
-                        <Link href="/churches#campuses">Find a Campus</Link>
+                        <Link href="/locations?type=campus">Find a Campus</Link>
                     </Button>
                     <Button variant="default" asChild>
-                        <Link href="/churches#churches">Find a Church</Link>
+                        <Link href="/locations?type=church">Find a Church</Link>
                     </Button>
                 </div>
             </div>

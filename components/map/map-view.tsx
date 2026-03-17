@@ -2,11 +2,14 @@
 
 import { useEffect, useMemo, useState } from "react"
 import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet"
+import MarkerClusterGroup from "react-leaflet-cluster"
 import type { Map as LeafletMap } from "leaflet"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
 import type { Location } from "@/sanity/lib/queries/locations"
 import { createLocationIcon } from "./location-marker"
+import { createClusterIcon } from "./cluster-icon"
+import { MapControls } from "./map-controls"
 import { MapLoadingPlaceholder } from "./map-loading-placeholder"
 
 /** Leaflet map extended with optional tap handler (from plugins) */
@@ -21,6 +24,10 @@ interface MapViewProps {
   onMarkerClick?: (id: string) => void
   filteredLocationIds?: string[]
   showLoadingOverlay?: boolean
+  scrollWheelZoom?: boolean
+  enableClustering?: boolean
+  showControls?: boolean
+  controlsHidden?: boolean
 }
 
 interface WithCoordinates {
@@ -87,7 +94,14 @@ function FlyToSelected({
     const loc = locations.find((l) => l._id === selectedId)
     if (loc?.coordinates) {
       const { lat, lng } = loc.coordinates
-      map.flyTo([lat, lng], map.getZoom(), { duration: 0.5 })
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches
+      if (reducedMotion) {
+        map.setView([lat, lng], map.getZoom())
+      } else {
+        map.flyTo([lat, lng], map.getZoom(), { duration: 0.5 })
+      }
     }
   }, [selectedId, locations, map])
 
@@ -101,6 +115,10 @@ export function MapView({
   onMarkerClick,
   filteredLocationIds,
   showLoadingOverlay = true,
+  scrollWheelZoom = false,
+  enableClustering = false,
+  showControls = false,
+  controlsHidden = false,
 }: MapViewProps) {
   const [tilesLoaded, setTilesLoaded] = useState(false)
   const visibleLocations = useMemo(() => {
@@ -123,8 +141,8 @@ export function MapView({
       maxBoundsViscosity={1.0}
       className="size-full"
       style={{ backgroundColor: "#262626" }}
-      scrollWheelZoom={false}
-      zoomControl={interactive}
+      scrollWheelZoom={scrollWheelZoom}
+      zoomControl={showControls ? false : interactive}
       attributionControl={false}
     >
       <TileLayer
@@ -144,21 +162,48 @@ export function MapView({
         <FlyToSelected locations={locations} selectedId={selectedId} />
       )}
 
-      {visibleLocations.map((location) => {
-        if (!location.coordinates) return null
-        return (
-          <Marker
-            key={location._id}
-            position={[location.coordinates.lat, location.coordinates.lng]}
-            icon={createLocationIcon(location)}
-            eventHandlers={
-              onMarkerClick
-                ? { click: () => onMarkerClick(location._id) }
-                : {}
-            }
-          />
-        )
-      })}
+      {enableClustering ? (
+        <MarkerClusterGroup
+          iconCreateFunction={createClusterIcon}
+          maxClusterRadius={50}
+          spiderfyOnMaxZoom
+          chunkedLoading
+        >
+          {visibleLocations.map((location) => {
+            if (!location.coordinates) return null
+            return (
+              <Marker
+                key={location._id}
+                position={[location.coordinates.lat, location.coordinates.lng]}
+                icon={createLocationIcon(location)}
+                eventHandlers={
+                  onMarkerClick
+                    ? { click: () => onMarkerClick(location._id) }
+                    : {}
+                }
+              />
+            )
+          })}
+        </MarkerClusterGroup>
+      ) : (
+        visibleLocations.map((location) => {
+          if (!location.coordinates) return null
+          return (
+            <Marker
+              key={location._id}
+              position={[location.coordinates.lat, location.coordinates.lng]}
+              icon={createLocationIcon(location)}
+              eventHandlers={
+                onMarkerClick
+                  ? { click: () => onMarkerClick(location._id) }
+                  : {}
+              }
+            />
+          )
+        })
+      )}
+
+      {showControls && <MapControls hidden={controlsHidden} />}
 
       {showLoadingOverlay && (
         <div
