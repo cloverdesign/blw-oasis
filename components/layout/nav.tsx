@@ -22,7 +22,7 @@ export default function Nav() {
     const lastScrollY = useRef(0);
 
     const pathname = usePathname();
-    const isChurchesPage = pathname.includes("/fellowship");
+    const isDarkBgPage = pathname.includes("/fellowship") || pathname.includes("/locations");
 
     useEffect(() => {
         document.body.style.overflow = isOpen ? "hidden" : "";
@@ -90,7 +90,7 @@ export default function Nav() {
                 "transition-transform duration-300 ease-in-out",
                 isScrolled && "bg-background border border-secondary",
                 !isNavVisible && "-translate-y-full",
-                isChurchesPage && !isScrolled && "text-background",
+                isDarkBgPage && !isScrolled && "text-background",
             )}>
                 <Link href="/" className="flex items-center group">
                     <Logo className="group-hover:text-primary size-20" />
@@ -104,7 +104,7 @@ export default function Nav() {
                 </ul>
                 <div className="hidden lg:block">
                     <Button variant="default" asChild className={
-                        cn(isChurchesPage && !isScrolled && "bg-background text-foreground")
+                        cn(isDarkBgPage && !isScrolled && "bg-background text-foreground")
                     }>
                         <Link href="/contact">Contact Us</Link>
                     </Button>

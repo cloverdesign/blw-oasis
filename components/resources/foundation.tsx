@@ -1,12 +1,12 @@
 import { Button } from "../ui/button"
-import foundation from "@/public/foundation.png"
+import foundation from "@/public/foundation.webp"
 import Image from "next/image"
 
 export const Foundation = () => {
     return (
-        <section className="p-4 lg:p-8">
-            <div className="h-[80vh] p-4 lg:p-8 bg-primary text-background flex overflow-hidden gap-10 rounded-4xl relative">
-                <div className="flex flex-col justify-between w-3/5 h-full pb-5">
+        <section id="foundation-school" className="scroll-mt-24 p-4 lg:p-8">
+            <div className="lg:h-[80vh] p-4 lg:p-8 bg-primary text-background flex lg:flex-row flex-col-reverse overflow-hidden gap-10 rounded-4xl relative">
+                <div className="flex flex-col justify-between lg:w-3/5 h-full lg:pb-5 gap-8">
                     <h2 className="text-4xl lg:text-7xl capitalize whitespace-nowrap">
                         Foundation <br /> School.
                     </h2>
@@ -29,7 +29,7 @@ export const Foundation = () => {
                         </Button>
                     </div>
                 </div>
-                <Image src={foundation.src} alt="Foundation School" width={500} height={500} className="rounded-4xl absolute -right-8 -top-10 -rotate-8" />
+                <Image src={foundation.src} alt="Foundation School" width={600} height={600} className="xl:w-[800px] rounded-4xl lg:absolute -right-16 -top-32 -rotate-8" />
             </div>
         </section>
     )

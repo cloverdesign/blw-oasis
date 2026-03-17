@@ -1,4 +1,5 @@
 import hero from "@/public/resources-hero.png"
+import { Reveal } from "../ui/reveal"
 
 export const Hero = () => {
     return (
@@ -12,10 +13,12 @@ export const Hero = () => {
                     backgroundRepeat: "no-repeat",
                 }}
             >
-                <h1 className="text-5xl lg:text-8xl capitalize">
+                <Reveal as="h1" amount={0} className="text-5xl lg:text-8xl capitalize">
                     Grow in <br /> Your Faith.
-                </h1>
-                <p className="lg:w-1/2">Oasis provides resources designed to help students deepen their walk with God, strengthen their understanding of Scripture, and grow spiritually.</p>
+                </Reveal>
+                <Reveal amount={0} delay={0.15} className="lg:w-1/2">
+                    <p>Oasis provides resources designed to help students deepen their walk with God, strengthen their understanding of Scripture, and grow spiritually.</p>
+                </Reveal>
             </div>
         </section>
     )

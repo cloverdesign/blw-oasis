@@ -1,4 +1,8 @@
+"use client"
+
 import { CrossIcon, HandHeartIcon, HandsPrayingIcon, HeartIcon, SealCheckIcon, HandCoinsIcon } from '@phosphor-icons/react/ssr'
+import { Reveal } from '../ui/reveal'
+
 export const Values = () => {
     const values = [
         {
@@ -34,23 +38,27 @@ export const Values = () => {
     ]
     return (
         <section className="flex flex-col items-center gap-10 lg:gap-20  px-4 lg:px-8 mt-[144px]">
-            <div className="relative">
-                <h2 className="text-4xl lg:text-7xl capitalize whitespace-nowrap text-center relative z-1">Our Culture & <br /> Core Values.</h2>
-                <svg className="text-accent absolute size-12 -top-1 -left-5 z-0" xmlns="http://www.w3.org/2000/svg" width="126" height="128" viewBox="0 0 126 128" fill="none">
-                    <path d="M41.6461 127.372L11.6285 105.197L46.2434 71.1229L0 63.8213L10.5467 27.8542L52.4633 47.866L45.7025 0H80.3175L73.5567 47.866L115.203 27.8542L125.75 63.8213L79.5062 71.1229L114.121 105.197L84.1035 127.372L63.01 85.1852L41.6461 127.372Z" fill="currentColor" />
-                </svg>
-            </div>
+            <Reveal>
+                <div className="relative">
+                    <h2 className="text-4xl lg:text-7xl capitalize whitespace-nowrap text-center relative z-1">Our Culture & <br /> Core Values.</h2>
+                    <svg className="text-accent absolute size-12 -top-1 -left-5 z-0" xmlns="http://www.w3.org/2000/svg" width="126" height="128" viewBox="0 0 126 128" fill="none">
+                        <path d="M41.6461 127.372L11.6285 105.197L46.2434 71.1229L0 63.8213L10.5467 27.8542L52.4633 47.866L45.7025 0H80.3175L73.5567 47.866L115.203 27.8542L125.75 63.8213L79.5062 71.1229L114.121 105.197L84.1035 127.372L63.01 85.1852L41.6461 127.372Z" fill="currentColor" />
+                    </svg>
+                </div>
+            </Reveal>
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:p-16 px-8'>
                 {
-                    values.map((value) => (
-                        <div key={value.title} className="[&_svg]:size-11 p-8 border border-secondary rounded-4xl flex flex-col gap-11">
-                            <span>{value.icon}</span>
-                            <div className='flex flex-col gap-3'>
-                                <h3 className='text-4xl'>{value.title}</h3>
-                                <p>{value.description}</p>
+                    values.map((value, index) => (
+                        <Reveal key={value.title} delay={index * 0.08}>
+                            <div className="[&_svg]:size-11 p-8 border border-secondary rounded-4xl flex flex-col gap-11 h-full">
+                                <span>{value.icon}</span>
+                                <div className='flex flex-col gap-3'>
+                                    <h3 className='text-4xl'>{value.title}</h3>
+                                    <p>{value.description}</p>
+                                </div>
                             </div>
-                        </div>
+                        </Reveal>
                     ))
                 }
             </div>

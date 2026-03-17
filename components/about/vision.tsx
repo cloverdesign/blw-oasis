@@ -10,7 +10,7 @@ export const Vision = () => {
         }
     ]
     return (
-        <section className="flex flex-col lg:flex-row items-center gap-3 px-4 lg:px-8 mt-20">
+        <section id="mission" className="scroll-mt-24 flex flex-col lg:flex-row items-center gap-3 px-4 lg:px-8 mt-20">
             {
                 content.map((item) => (
                     <div key={item.title} className="bg-foreground text-background flex flex-col justify-between rounded-4xl overflow-hidden p-10 min-h-[400px] lg:min-h-[500px]">

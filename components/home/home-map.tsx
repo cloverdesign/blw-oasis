@@ -10,7 +10,7 @@ export function HomeMap({ locations }: HomeMapProps) {
     return (
         <div className="px-4 lg:px-10">
             <StaticMapSection>
-                <LocationMap locations={locations} mode="interactive" />
+                <LocationMap locations={locations} mode="interactive" scrollWheelZoom enableClustering showControls />
             </StaticMapSection>
         </div>
     )

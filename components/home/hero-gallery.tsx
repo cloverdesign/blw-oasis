@@ -1,22 +1,24 @@
+"use client"
+
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 export const HeroGallery = () => {
     const gallery = [
         {
-            src: "/gallery-1.png",
+            src: "/gallery-1.webp",
             alt: "Gallery Image 1",
         },
         {
-            src: "/gallery-2.png",
+            src: "/gallery-2.webp",
             alt: "Gallery Image 2",
         },
         {
-            src: "/gallery-3.png",
+            src: "/gallery-3.webp",
             alt: "Gallery Image 3",
         },
         {
-            src: "/gallery-4.png",
+            src: "/gallery-4.webp",
             alt: "Gallery Image 4",
         },
     ]
@@ -53,7 +55,7 @@ const GalleryImage = ({
     return (
         <div
             className={cn(
-                "w-[20%] shrink-0 border-[5px] border-background rounded-lg overflow-hidden",
+                "w-[20%] h-[425px] shrink-0 border-[5px] border-background rounded-lg overflow-hidden",
                 !isFirst && "-ml-12"
             )}
         >
@@ -62,7 +64,10 @@ const GalleryImage = ({
                 alt={alt}
                 width={300}
                 height={425}
-                className="w-full h-auto"
+                className={cn(
+                    "object-cover w-full h-full",
+                    isFirst && "object-right"
+                )}
             />
         </div>
     )

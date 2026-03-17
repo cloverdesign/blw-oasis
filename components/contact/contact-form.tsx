@@ -1,26 +1,46 @@
 "use client"
 
+import { useRef, useState, type FormEvent } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 
+const COOLDOWN_MS = 10_000
+
 const inputClass = cn(
-  "border-0 border-b border-border rounded-none px-0 shadow-none",
-  "focus-visible:ring-0 focus-visible:border-ring"
+    "border-0 border-b border-border rounded-none px-0 shadow-none",
+    "focus-visible:ring-0 focus-visible:border-ring"
 )
 
 export function ContactForm() {
     const contactFormAction = process.env.NEXT_PUBLIC_CONTACT_FORM_ACTION
     const isConfigured = Boolean(contactFormAction)
+    const lastSubmitTime = useRef(0)
+    const [cooldownMsg, setCooldownMsg] = useState("")
+
+    function handleSubmit(e: FormEvent<HTMLFormElement>) {
+        if (!isConfigured) {
+            e.preventDefault()
+            return
+        }
+        const now = Date.now()
+        if (now - lastSubmitTime.current < COOLDOWN_MS) {
+            e.preventDefault()
+            setCooldownMsg("Please wait a few seconds before submitting again.")
+            return
+        }
+        lastSubmitTime.current = now
+        setCooldownMsg("")
+    }
 
     return (
-        <section className="px-4 lg:px-10 py-12 lg:py-20">
+        <section className="px-4 lg:px-32 py-12 lg:py-20">
             <form
                 action={isConfigured ? contactFormAction : undefined}
                 method="POST"
-                onSubmit={!isConfigured ? (e) => e.preventDefault() : undefined}
-                className="max-w-3xl mx-auto flex flex-col gap-8"
+                onSubmit={handleSubmit}
+                className=" mx-auto flex flex-col gap-8"
                 aria-label="Contact form"
             >
                 <input type="hidden" name="_subject" value="New BLW Oasis contact inquiry" />
@@ -33,7 +53,6 @@ export function ContactForm() {
                             id="first-name"
                             name="firstName"
                             type="text"
-                            placeholder="First Name"
                             className={inputClass}
                             required
                         />
@@ -46,7 +65,6 @@ export function ContactForm() {
                             id="last-name"
                             name="lastName"
                             type="text"
-                            placeholder="Last Name"
                             className={inputClass}
                             required
                         />
@@ -61,7 +79,6 @@ export function ContactForm() {
                             id="email"
                             name="email"
                             type="email"
-                            placeholder="Email"
                             className={inputClass}
                             required
                         />
@@ -74,7 +91,6 @@ export function ContactForm() {
                             id="phone"
                             name="phone"
                             type="tel"
-                            placeholder="Phone Number"
                             className={inputClass}
                         />
                     </div>
@@ -87,7 +103,6 @@ export function ContactForm() {
                         id="subject"
                         name="subject"
                         type="text"
-                        placeholder="Subject"
                         className={inputClass}
                     />
                 </div>
@@ -98,7 +113,6 @@ export function ContactForm() {
                     <Textarea
                         id="message"
                         name="message"
-                        placeholder="Message"
                         rows={6}
                         className={cn(inputClass, "min-h-[140px] resize-y")}
                     />
@@ -108,6 +122,9 @@ export function ContactForm() {
                         Send Message
                     </Button>
                 </div>
+                {cooldownMsg && (
+                    <p className="text-sm text-muted-foreground">{cooldownMsg}</p>
+                )}
                 {!isConfigured && (
                     <p className="text-sm text-destructive">
                         Contact form is not configured yet. Please set `NEXT_PUBLIC_CONTACT_FORM_ACTION`.
