@@ -1,20 +1,11 @@
 'use client'
 import { useRef, useState, type FormEvent } from "react";
-import FooterLogo from "@/assets/footer-logo.svg";
+import FooterLogo from "@/assets/footerlogo.svg";
 import { ArrowRight, Instagram, Tiktok, Youtube } from "iconoir-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "../ui/input-group";
 
 export const Footer = () => {
-
-    const pathname = usePathname();
-    const showCTA =
-        pathname === "/" ||
-        pathname.startsWith("/fellowship") ||
-        pathname.startsWith("/resources") ||
-        pathname.startsWith("/contact") ||
-        pathname.startsWith("/watch");
 
     const footerLinks = [
         {
@@ -65,11 +56,9 @@ export const Footer = () => {
 
     return (
         <footer className="p-4 lg:p-8 flex flex-col lg:gap-20 gap-16 mt-[150px]">
-            {showCTA && <CTA />}
-            <section className="bg-secondary rounded-4xl px-4 lg:px-10 py-8 flex flex-col gap-20 justify-between">
-                <div className="flex lg:flex-row flex-col-reverse justify-between items-center gap-16 px-16">
-                    <FooterLogo className="text-secondary-foreground scale-60 lg:scale-80" />
-
+            <section className="bg-secondary rounded-4xl px-16 pt-16 flex flex-col gap-32 justify-between">
+                <div className="flex lg:flex-row flex-col-reverse justify-between gap-16">
+                    <CTA />
                     <div className="flex flex-wrap gap-16 lg:gap-32">
                         <LinkSection section={footerLinks[0]} />
                         <div className="flex flex-col gap-16">
@@ -79,9 +68,9 @@ export const Footer = () => {
                     </div>
                 </div>
 
-                <div className="flex lg:flex-row flex-col-reverse  items-center justify-between gap-8 text-xs">
-                    <p className="text-center lg:text-left w-[60%]">© BLW Oasis Campus Ministry. All rights reserved.</p>
-
+                <div className="relative flex lg:flex-row flex-col-reverse  items-center justify-between gap-8 text-xs">
+                    <p className="text-center lg:text-left">© BLW Oasis Campus Ministry. <br /> All rights reserved.</p>
+                    <FooterLogo className="opacity-50" />
                     <ul className="flex gap-2 items-center">
                         {socialLinks.map((link) => (
                             <li key={link.title}>
@@ -92,7 +81,6 @@ export const Footer = () => {
                         ))}
                     </ul>
                 </div>
-
             </section>
         </footer >
     )
@@ -104,8 +92,8 @@ function LinkSection({
     section: { title: string; links: { label: string; href: string }[] };
 }) {
     return (
-        <div className="text-xs flex flex-col gap-3">
-            <h3 className="font-heading uppercase">{section.title}.</h3>
+        <div className="flex flex-col gap-3">
+            <h3 className="text-xl font-heading uppercase">{section.title}.</h3>
             <ul className="flex flex-col gap-2">
                 {section.links.map((link) => (
                     <li key={link.label}>
@@ -143,8 +131,8 @@ const CTA = () => {
     }
 
     return (
-        <section className="flex flex-col justify-center items-center lg:gap-16 gap-8 text-center">
-            <div className="flex flex-col gap-8 md:w-[50%] lg:w-[30%]">
+        <section className="flex flex-col lg:gap-16 gap-8">
+            <div className="flex flex-col gap-8 md:w-1/2">
                 <h1 className="lg:text-6xl text-4xl">
                     Stay Connected <br /> with Oasis.
                 </h1>
@@ -155,10 +143,10 @@ const CTA = () => {
                 action={isNewsletterConfigured ? newsletterFormAction : undefined}
                 method="POST"
                 onSubmit={handleSubmit}
-                className="flex flex-col gap-3 items-center"
+                className="flex flex-col gap-3"
             >
                 <input type="hidden" name="_subject" value="New BLW Oasis newsletter subscriber" />
-                <InputGroup size="default" className="w-fit min-w-[300px] text-sm md:text-base">
+                <InputGroup size="default" className="max-w-[350px] text-sm md:text-base border-foreground/10">
                     <InputGroupInput
                         placeholder="me@example.com"
                         type="email"

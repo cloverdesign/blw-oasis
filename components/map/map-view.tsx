@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
-import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet"
+import { useEffect, useMemo, useRef, useState } from "react"
+import { MapContainer, Marker, TileLayer, Tooltip, useMap } from "react-leaflet"
 import MarkerClusterGroup from "react-leaflet-cluster"
 import type { Map as LeafletMap } from "leaflet"
 import L from "leaflet"
@@ -36,9 +36,11 @@ interface WithCoordinates {
 
 function FitBounds({ locations }: { locations: Location[] }) {
   const map = useMap()
+  const locationsRef = useRef(locations)
+  locationsRef.current = locations
 
   useEffect(() => {
-    const coords = (locations as WithCoordinates[])
+    const coords = (locationsRef.current as WithCoordinates[])
       .filter((l): l is WithCoordinates => l.coordinates != null)
       .map((l) => [l.coordinates.lat, l.coordinates.lng] as [number, number])
 
@@ -48,7 +50,8 @@ function FitBounds({ locations }: { locations: Location[] }) {
         maxZoom: 5,
       })
     }
-  }, [locations, map])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map])
 
   return null
 }
@@ -106,6 +109,30 @@ function FlyToSelected({
   }, [selectedId, locations, map])
 
   return null
+}
+
+function LocationTooltip({ location }: { location: Location }) {
+  return (
+    <Tooltip
+      direction="top"
+      offset={[0, -14]}
+      className="map-tooltip"
+    >
+      <div className="flex flex-col gap-0.5">
+        <span className="font-heading text-xs font-semibold uppercase tracking-wide">
+          {location.name}
+        </span>
+        <span className="text-[10px] capitalize text-neutral-400">
+          {location.type === "church" ? "Church" : "Campus Fellowship"}
+        </span>
+        {location.address && (
+          <span className="mt-0.5 max-w-[200px] text-[10px] leading-tight text-neutral-400">
+            {location.address}
+          </span>
+        )}
+      </div>
+    </Tooltip>
+  )
 }
 
 export function MapView({
@@ -181,7 +208,9 @@ export function MapView({
                     ? { click: () => onMarkerClick(location._id) }
                     : {}
                 }
-              />
+              >
+                <LocationTooltip location={location} />
+              </Marker>
             )
           })}
         </MarkerClusterGroup>
@@ -198,7 +227,9 @@ export function MapView({
                   ? { click: () => onMarkerClick(location._id) }
                   : {}
               }
-            />
+            >
+              <LocationTooltip location={location} />
+            </Marker>
           )
         })
       )}
