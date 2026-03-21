@@ -126,6 +126,9 @@
   .leaflet-tooltip, .leaflet-draw-tooltip {
     @apply !bg-foreground !text-background !animate-none !rounded-md !border-none !p-0 !px-3 !py-1.5 !shadow-none;
   }
+  .map-tooltip.leaflet-tooltip {
+    @apply !rounded-lg !px-3 !py-2.5 !shadow-lg;
+  }
   .leaflet-draw-tooltip:before {
     @apply bg-foreground !top-1/2 !right-0.5 size-2.5 translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[2px] !border-none;
   }
