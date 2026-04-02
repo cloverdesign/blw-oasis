@@ -8,6 +8,8 @@ import { LiveSection } from "@/components/watch/live-section";
 import { getEvents } from "@/sanity/lib/queries/events";
 import { getLocations } from "@/sanity/lib/queries/locations";
 import { getLiveStatus } from "@/lib/youtube";
+import { getSiteSettings } from "@/sanity/lib/queries/siteSettings";
+import { getHomePageImages } from "@/sanity/lib/queries/pageImages";
 
 export const metadata: Metadata = {
   title: { absolute: "BLW Oasis | Miracles Happen Here" },
@@ -19,17 +21,19 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [locations, liveStatus, events] = await Promise.all([
+  const [locations, liveStatus, events, siteSettings, homeImages] = await Promise.all([
     getLocations(),
     getLiveStatus(),
     getEvents(),
+    getSiteSettings(),
+    getHomePageImages(),
   ]);
 
   return (
     <main className="pt-20 lg:pt-36">
-      <Hero />
+      <Hero siteSettings={siteSettings} homeImages={homeImages} />
       <Who />
-      <HeroGallery />
+      <HeroGallery homeImages={homeImages} />
       <Events events={events} />
       {liveStatus.isLive && (
         <LiveSection
@@ -39,7 +43,7 @@ export default async function Home() {
           liveThumbnail={liveStatus.thumbnail}
         />
       )}
-      <HomeMap locations={locations} />
+      <HomeMap locations={locations} siteSettings={siteSettings} />
     </main>
   );
 }

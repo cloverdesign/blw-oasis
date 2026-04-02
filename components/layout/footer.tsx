@@ -56,7 +56,7 @@ export const Footer = () => {
 
     return (
         <footer className="p-4 lg:p-8 flex flex-col lg:gap-20 gap-16 mt-[150px]">
-            <section className="bg-secondary rounded-4xl px-16 pt-16 flex flex-col gap-32 justify-between">
+            <section className="bg-secondary overflow-hidden rounded-4xl pb-16 lg:px-16 px-8 pt-16 flex flex-col gap-32 justify-between">
                 <div className="flex lg:flex-row flex-col-reverse justify-between gap-16">
                     <CTA />
                     <div className="flex flex-wrap gap-16 lg:gap-32">
@@ -68,10 +68,10 @@ export const Footer = () => {
                     </div>
                 </div>
 
-                <div className="relative flex lg:flex-row flex-col-reverse  items-center justify-between gap-8 text-xs">
-                    <p className="text-center lg:text-left">© BLW Oasis Campus Ministry. <br /> All rights reserved.</p>
-                    <FooterLogo className="opacity-50" />
-                    <ul className="flex gap-2 items-center">
+                <div className="flex lg:flex-row flex-col items-center justify-between gap-8 text-xs relative">
+                    <p className="text-center lg:text-left lg:w-1/5">© BLW Oasis Campus Ministry. All rights reserved.</p>
+                    <FooterLogo className="opacity-50 lg:w-1/2 lg:absolute -bottom-35 right-[48%] lg:translate-x-1/2" />
+                    <ul className="flex gap-2 items-center justify-end">
                         {socialLinks.map((link) => (
                             <li key={link.title}>
                                 <Link href={link.link} className="hover:text-primary">

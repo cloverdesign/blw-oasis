@@ -1,15 +1,26 @@
 import Image from "next/image"
 import giveHero from "@/public/give.webp"
 import { Reveal } from "../ui/reveal"
+import { optimizedImageUrl } from "@/sanity/lib/image"
+import type { GivePageImages } from "@/sanity/lib/queries/pageImages"
 
-export const Hero = () => {
+interface HeroProps {
+    giveImages: GivePageImages | null
+}
+
+export const Hero = ({ giveImages }: HeroProps) => {
+    const imageSrc = giveImages?.heroImage?.asset
+        ? optimizedImageUrl(giveImages.heroImage.asset, 1200)
+        : giveHero
+    const imageAlt = giveImages?.heroImage?.alt || "Hands holding a yellow flower"
+
     return (
         <section className="px-4 lg:px-10 py-8 lg:py-16">
             <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center justify-center">
                 <Reveal rotate={-5} amount={0} className="w-full lg:w-1/2 relative aspect-3/4 max-h-[70vh] shrink-0">
                     <Image
-                        src={giveHero}
-                        alt="Hands holding a yellow flower"
+                        src={imageSrc}
+                        alt={imageAlt}
                         fill
                         className="object-cover rounded-4xl -rotate-3"
                         sizes="(max-width: 1024px) 100vw, 50vw"

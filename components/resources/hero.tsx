@@ -1,13 +1,23 @@
 import hero from "@/public/resources-hero.png"
 import { Reveal } from "../ui/reveal"
+import { optimizedImageUrl } from "@/sanity/lib/image"
+import type { ResourcesPageImages } from "@/sanity/lib/queries/pageImages"
 
-export const Hero = () => {
+interface HeroProps {
+    resourcesImages: ResourcesPageImages | null
+}
+
+export const Hero = ({ resourcesImages }: HeroProps) => {
+    const bgImage = resourcesImages?.heroImage?.asset
+        ? optimizedImageUrl(resourcesImages.heroImage.asset, 1920)
+        : hero.src
+
     return (
         <section className="px-4 lg:px-8">
             <div
                 className="h-[70vh] rounded-t-4xl flex flex-col items-center justify-center text-background gap-8 lg:gap-11 text-center p-4"
                 style={{
-                    backgroundImage: `url(${hero.src})`,
+                    backgroundImage: `url(${bgImage})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",

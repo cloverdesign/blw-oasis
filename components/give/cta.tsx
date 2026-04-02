@@ -1,7 +1,14 @@
 import Link from "next/link"
 import { Button } from "../ui/button"
+import { getCta, type SiteSettings } from "@/sanity/lib/queries/siteSettings"
 
-export const CTA = () => {
+interface CTAProps {
+    siteSettings: SiteSettings | null
+}
+
+export const CTA = ({ siteSettings }: CTAProps) => {
+    const cta = getCta(siteSettings, 'give_cta')
+
     return (
         <section className="px-4 lg:px-10 py-12 lg:py-20">
             <div className="max-w-2xl mx-auto text-center flex flex-col gap-8">
@@ -10,7 +17,13 @@ export const CTA = () => {
                 </p>
                 <div>
                     <Button variant="primary" asChild>
-                        <a href="https://bit.ly/giveblwoasis">Give Now</a>
+                        <Link
+                            href={cta.href}
+                            target={cta.isExternal ? "_blank" : undefined}
+                            rel={cta.isExternal ? "noopener noreferrer" : undefined}
+                        >
+                            {cta.label}
+                        </Link>
                     </Button>
                 </div>
             </div>

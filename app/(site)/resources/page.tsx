@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Foundation } from "@/components/resources/foundation";
 import { Hero } from "@/components/resources/hero";
 import { Rhapsody } from "@/components/resources/rhapsody";
+import { getSiteSettings } from "@/sanity/lib/queries/siteSettings";
+import { getResourcesPageImages } from "@/sanity/lib/queries/pageImages";
 
 export const metadata: Metadata = {
   title: "Resources",
@@ -12,12 +14,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ResourcesPage() {
+export default async function ResourcesPage() {
+    const [siteSettings, resourcesImages] = await Promise.all([
+        getSiteSettings(),
+        getResourcesPageImages(),
+    ])
+
     return (
         <main className="pt-32">
-            <Hero />
-            <Rhapsody />
-            <Foundation />
+            <Hero resourcesImages={resourcesImages} />
+            <Rhapsody siteSettings={siteSettings} resourcesImages={resourcesImages} />
+            <Foundation resourcesImages={resourcesImages} />
         </main>
     )
 }
