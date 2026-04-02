@@ -5,6 +5,8 @@ import { How } from "@/components/about/how";
 import { Leadership } from "@/components/about/leadership";
 import { Values } from "@/components/about/values";
 import { Vision } from "@/components/about/vision";
+import { getAboutPageImages } from "@/sanity/lib/queries/pageImages";
+import { getLeaders } from "@/sanity/lib/queries/leaders";
 
 export const metadata: Metadata = {
   title: "About",
@@ -15,15 +17,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+    const [aboutImages, leaders] = await Promise.all([
+        getAboutPageImages(),
+        getLeaders(),
+    ])
+
     return (
         <main className="pt-20 lg:pt-36">
-            <Hero />
-            <How />
+            <Hero aboutImages={aboutImages} />
+            <How aboutImages={aboutImages} />
             <Vision />
             <Values />
             <Faiths />
-            <Leadership />
+            <Leadership leaders={leaders} />
         </main>
     )
 }

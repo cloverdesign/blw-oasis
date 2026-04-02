@@ -1,7 +1,16 @@
-import hero from "@/public/hero.png"
 import { Reveal } from "../ui/reveal"
+import { optimizedImageUrl } from "@/sanity/lib/image"
+import type { HighlightReel } from "@/sanity/lib/queries/highlightReel"
 
-export const Hero = () => {
+interface HeroProps {
+    highlightReel: HighlightReel | null
+}
+
+export const Hero = ({ highlightReel }: HeroProps) => {
+    const bgImage = highlightReel?.thumbnail?.asset
+        ? optimizedImageUrl(highlightReel.thumbnail.asset, 1920)
+        : "/hero.png"
+
     return (
         <section className="px-4 lg:px-8">
             <div className="flex flex-col items-center justify-center gap-10 text-center p-8 lg:p-16 relative z-2">
@@ -10,15 +19,14 @@ export const Hero = () => {
                 </Reveal>
                 <Reveal amount={0} delay={0.15} className="lg:w-1/2">
                     <p>
-                        Watch messages, worship moments, campus highlights, and more
-                        from the Oasis community.
+                        {highlightReel?.description || "Watch messages, worship moments, campus highlights, and more from the Oasis community."}
                     </p>
                 </Reveal>
             </div>
             <div
                 className="h-[70vh] rounded-4xl"
                 style={{
-                    backgroundImage: `url(${hero.src})`,
+                    backgroundImage: `url(${bgImage})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",

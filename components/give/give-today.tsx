@@ -1,31 +1,42 @@
-import Link from "next/link"
+import EspeesLogo from "@/assets/espees.png"
+import ZelleLogo from "@/assets/zelle.png"
+import CashappLogo from "@/assets/cashapp.png"
+import PayPalLogo from "@/assets/paypal.png"
+import Image from "next/image"
+import { cn } from "@/lib/utils"
 
 const paymentMethods = [
-    { name: "Zelle", href: "#", id: "zelle" },
-    { name: "Paypal", href: "#", id: "paypal" },
-    { name: "Kingspay", href: "#", id: "kingspay" },
-    { name: "Wire", href: "#", id: "wire" },
+    { logo: EspeesLogo, name: "Espees", detail: "GIVOASIS", id: "espees" },
+    { logo: ZelleLogo, name: "Zelle", detail: "give@theoasisusa.com", id: "zelle" },
+    { logo: CashappLogo, name: "Cashapp", detail: "$partnershipoasis", id: "cashapp" },
+    { logo: PayPalLogo, name: "PayPal", detail: "blwusa3.finance@gmail.com", id: "paypal" },
 ] as const
 
 export const GiveToday = () => {
     return (
         <section id="give-today" className="px-4 lg:px-10 py-12 lg:py-20 scroll-mt-24">
             <div className="max-w-7xl mx-auto">
-                <h2 className="text-4xl lg:text-6xl capitalize font-heading text-center mb-10 lg:mb-16">
-                    Give Today.
-                </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
                     {paymentMethods.map((method) => (
-                        <Link
+                        <div
                             key={method.id}
-                            href={method.href}
-                            className="border border-border rounded-2xl p-6 lg:p-8 min-h-[300px] flex items-start justify-start transition-colors hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                            className="hover:rotate-3 bg-background transition-all duration-300 border border-border rounded-2xl p-6 lg:p-8 min-h-[150px] flex items-center justify-center gap-6"
                             data-give-method={method.id}
                         >
-                            <span className="text-base lg:text-lg font-medium">
-                                {method.name}
-                            </span>
-                        </Link>
+                            <Image src={method.logo} alt={method.name} width={100} height={100} className={cn(
+                                "w-40",
+                                method.id === "espees" && "w-32",
+                                method.id === "cashapp" && "w-44",
+                            )} />
+                            <div className="flex flex-col items-start justify-start gap-2">
+                                <span className="text-base lg:text-2xl font-medium">
+                                    {method.name}
+                                </span>
+                                <span className="text-xl text-muted-foreground">
+                                    {method.detail}
+                                </span>
+                            </div>
+                        </div>
                     ))}
                 </div>
             </div>

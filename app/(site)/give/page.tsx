@@ -3,6 +3,8 @@ import { CTA } from "@/components/give/cta"
 import { GiveToday } from "@/components/give/give-today"
 import { Hero } from "@/components/give/hero"
 import { WhyWeGive } from "@/components/give/why-we-give"
+import { getSiteSettings } from "@/sanity/lib/queries/siteSettings";
+import { getGivePageImages } from "@/sanity/lib/queries/pageImages";
 
 export const metadata: Metadata = {
   title: "Give",
@@ -13,13 +15,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function GivePage() {
+export default async function GivePage() {
+    const [siteSettings, giveImages] = await Promise.all([
+        getSiteSettings(),
+        getGivePageImages(),
+    ])
+
     return (
         <main className="pt-20 lg:pt-36">
-            <Hero />
+            <Hero giveImages={giveImages} />
             <WhyWeGive />
             <GiveToday />
-            <CTA />
+            <CTA siteSettings={siteSettings} />
         </main>
     )
 }

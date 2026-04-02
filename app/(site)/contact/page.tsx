@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact/contact-form"
 import { Hero } from "@/components/contact/hero"
+import { getContactPageImages } from "@/sanity/lib/queries/pageImages";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -11,10 +12,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+    const contactImages = await getContactPageImages()
+
     return (
         <main className="pt-20 lg:pt-36">
-            <Hero />
+            <Hero contactImages={contactImages} />
             <ContactForm />
         </main>
     )

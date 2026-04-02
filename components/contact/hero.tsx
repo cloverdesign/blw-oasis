@@ -1,13 +1,23 @@
 import contactHero from "@/public/contact-hero.webp"
 import { Reveal } from "../ui/reveal"
+import { optimizedImageUrl } from "@/sanity/lib/image"
+import type { ContactPageImages } from "@/sanity/lib/queries/pageImages"
 
-export const Hero = () => {
+interface HeroProps {
+    contactImages: ContactPageImages | null
+}
+
+export const Hero = ({ contactImages }: HeroProps) => {
+    const bgImage = contactImages?.heroImage?.asset
+        ? optimizedImageUrl(contactImages.heroImage.asset, 1920)
+        : contactHero.src
+
     return (
         <section className="px-4 lg:px-10 py-8">
             <div
                 className="h-screen min-h-[60vh] relative flex flex-col items-center justify-center rounded-4xl overflow-hidden"
                 style={{
-                    backgroundImage: `url(${contactHero.src})`,
+                    backgroundImage: `url(${bgImage})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                 }}

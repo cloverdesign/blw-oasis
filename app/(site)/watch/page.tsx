@@ -4,6 +4,7 @@ import { FeaturedVideos } from "@/components/watch/featured-videos"
 import { LiveSection } from "@/components/watch/live-section"
 import { getVideos } from "@/sanity/lib/queries/videos"
 import { getLiveStatus } from "@/lib/youtube"
+import { getHighlightReel } from "@/sanity/lib/queries/highlightReel"
 
 export const metadata: Metadata = {
   title: "Watch",
@@ -12,14 +13,15 @@ export const metadata: Metadata = {
 };
 
 export default async function WatchPage() {
-    const [videos, liveStatus] = await Promise.all([
+    const [videos, liveStatus, highlightReel] = await Promise.all([
         getVideos(),
         getLiveStatus(),
+        getHighlightReel(),
     ])
 
     return (
         <main className="pt-20 lg:pt-36">
-            <Hero />
+            <Hero highlightReel={highlightReel} />
             <FeaturedVideos videos={videos} />
             {liveStatus.isLive && (
                 <LiveSection
