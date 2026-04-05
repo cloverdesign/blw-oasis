@@ -12,6 +12,7 @@ import {aboutPageImagesType} from './aboutPageImagesType'
 import {givePageImagesType} from './givePageImagesType'
 import {contactPageImagesType} from './contactPageImagesType'
 import {resourcesPageImagesType} from './resourcesPageImagesType'
+import {liveStreamType} from './liveStreamType'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -27,5 +28,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     givePageImagesType,
     contactPageImagesType,
     resourcesPageImagesType,
+    liveStreamType,
   ],
 }

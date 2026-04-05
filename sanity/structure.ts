@@ -1,6 +1,6 @@
 import type {StructureResolver} from 'sanity/structure'
 
-const SINGLETON_TYPES = ['siteSettings', 'highlightReel', 'homePageImages', 'aboutPageImages', 'givePageImages', 'contactPageImages', 'resourcesPageImages']
+const SINGLETON_TYPES = ['siteSettings', 'highlightReel', 'liveStream', 'homePageImages', 'aboutPageImages', 'givePageImages', 'contactPageImages', 'resourcesPageImages']
 
 export const structure: StructureResolver = (S) =>
   S.list()
@@ -20,6 +20,11 @@ export const structure: StructureResolver = (S) =>
         .title('Highlight Reel')
         .child(
           S.document().schemaType('highlightReel').documentId('highlightReel'),
+        ),
+      S.listItem()
+        .title('Live Stream')
+        .child(
+          S.document().schemaType('liveStream').documentId('liveStream'),
         ),
       S.divider(),
       S.listItem()
