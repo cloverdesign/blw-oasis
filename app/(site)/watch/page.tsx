@@ -3,7 +3,7 @@ import { Hero } from "@/components/watch/hero"
 import { FeaturedVideos } from "@/components/watch/featured-videos"
 import { LiveSection } from "@/components/watch/live-section"
 import { getVideos } from "@/sanity/lib/queries/videos"
-import { getLiveStatus } from "@/lib/youtube"
+import { getLiveStream } from "@/sanity/lib/queries/liveStream"
 import { getHighlightReel } from "@/sanity/lib/queries/highlightReel"
 
 export const metadata: Metadata = {
@@ -13,24 +13,24 @@ export const metadata: Metadata = {
 };
 
 export default async function WatchPage() {
-    const [videos, liveStatus, highlightReel] = await Promise.all([
+    const [videos, liveStream, highlightReel] = await Promise.all([
         getVideos(),
-        getLiveStatus(),
+        getLiveStream(),
         getHighlightReel(),
     ])
+
+    const showLive = liveStream?.isEnabled && liveStream.embedCode
 
     return (
         <main className="pt-20 lg:pt-36">
             <Hero highlightReel={highlightReel} />
-            <FeaturedVideos videos={videos} />
-            {liveStatus.isLive && (
+            {showLive && (
                 <LiveSection
-                    isLive={liveStatus.isLive}
-                    liveVideoId={liveStatus.videoId}
-                    liveTitle={liveStatus.title}
-                    liveThumbnail={liveStatus.thumbnail}
+                    title={liveStream.title}
+                    embedCode={liveStream.embedCode!}
                 />
             )}
+            <FeaturedVideos videos={videos} />
         </main>
     )
 }

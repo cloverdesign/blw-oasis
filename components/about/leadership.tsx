@@ -31,7 +31,7 @@ const fallbackLeaders = [
   },
   {
     name: "Pastor Debbie Onyibe",
-    role: "Group Pastor & Lead, Global Missions & Media",
+    role: "Group Pastor, Oasis Vanguards (Georgia)",
     about:
       "Debbie Onyibe is a Pastor at Oasis Vanguards and leads Global Missions and Media, shaping the systems and strategies behind outreach and leadership growth across campuses. As a creative director and brand strategist, she operates at the intersection of strategy, culture, and impact; helping ideas grow into movements. Her focus is simple: raise bold, Spirit-filled leaders and win souls at scale.",
     imageSrc: pastorDebbie.src,

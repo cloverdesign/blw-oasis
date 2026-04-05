@@ -7,7 +7,7 @@ import { Who } from "@/components/home/who";
 import { LiveSection } from "@/components/watch/live-section";
 import { getEvents } from "@/sanity/lib/queries/events";
 import { getLocations } from "@/sanity/lib/queries/locations";
-import { getLiveStatus } from "@/lib/youtube";
+import { getLiveStream } from "@/sanity/lib/queries/liveStream";
 import { getSiteSettings } from "@/sanity/lib/queries/siteSettings";
 import { getHomePageImages } from "@/sanity/lib/queries/pageImages";
 
@@ -21,13 +21,15 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [locations, liveStatus, events, siteSettings, homeImages] = await Promise.all([
+  const [locations, liveStream, events, siteSettings, homeImages] = await Promise.all([
     getLocations(),
-    getLiveStatus(),
+    getLiveStream(),
     getEvents(),
     getSiteSettings(),
     getHomePageImages(),
   ]);
+
+  const showLive = liveStream?.isEnabled && liveStream.embedCode
 
   return (
     <main className="pt-20 lg:pt-36">
@@ -35,12 +37,10 @@ export default async function Home() {
       <Who />
       <HeroGallery homeImages={homeImages} />
       <Events events={events} />
-      {liveStatus.isLive && (
+      {showLive && (
         <LiveSection
-          isLive={liveStatus.isLive}
-          liveVideoId={liveStatus.videoId}
-          liveTitle={liveStatus.title}
-          liveThumbnail={liveStatus.thumbnail}
+          title={liveStream.title}
+          embedCode={liveStream.embedCode!}
         />
       )}
       <HomeMap locations={locations} siteSettings={siteSettings} />

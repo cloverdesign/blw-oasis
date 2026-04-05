@@ -9,7 +9,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline' https://unpkg.com",
       "img-src 'self' data: blob: https://cdn.sanity.io https://img.youtube.com https://i.ytimg.com https://*.basemaps.cartocdn.com https://*.tile.openstreetmap.org https://www.google-analytics.com",
       "font-src 'self' https://fonts.gstatic.com",
-      "frame-src https://www.youtube.com https://www.youtube-nocookie.com https://core.sanity-cdn.com",
+      "frame-src https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://www.facebook.com https://core.sanity-cdn.com",
       "connect-src 'self' https://cdn.sanity.io https://*.api.sanity.io https://*.sanity.io wss://*.sanity.io https://formspree.io https://*.basemaps.cartocdn.com https://*.tile.openstreetmap.org https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com",
       "media-src 'self'",
       "object-src 'none'",
