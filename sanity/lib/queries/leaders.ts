@@ -20,6 +20,6 @@ export async function getLeaders(): Promise<Leader[]> {
       order
     }`,
     {},
-    { next: { revalidate: 60 } },
+    { next: { revalidate: 60, tags: ['leader'] } },
   )
 }

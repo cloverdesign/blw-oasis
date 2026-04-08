@@ -18,6 +18,6 @@ export async function getHighlightReel(): Promise<HighlightReel | null> {
       description
     }`,
     {},
-    { next: { revalidate: 60 } },
+    { next: { revalidate: 60, tags: ['highlightReel'] } },
   )
 }

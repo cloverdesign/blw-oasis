@@ -1,7 +1,7 @@
 import { client } from '../client'
 
 const IMAGE_PROJECTION = '{ asset->, alt }'
-const REVALIDATE = { next: { revalidate: 60 } }
+const REVALIDATE = { next: { revalidate: 60, tags: ['pageImages'] } }
 
 export interface SanityImage {
   asset: { _id: string; url: string }

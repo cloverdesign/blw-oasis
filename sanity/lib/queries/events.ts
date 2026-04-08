@@ -27,6 +27,6 @@ const EVENTS_QUERY = `*[_type == "event" && date >= now()] | order(date asc) {
 }`
 
 export async function getEvents(): Promise<Event[]> {
-  const data = await client.fetch<Event[]>(EVENTS_QUERY)
+  const data = await client.fetch<Event[]>(EVENTS_QUERY, {}, { next: { revalidate: 60, tags: ['event'] } })
   return data ?? []
 }
