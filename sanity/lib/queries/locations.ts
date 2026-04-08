@@ -29,6 +29,6 @@ const LOCATIONS_QUERY = `*[_type == "location"] | order(name asc) {
 }`
 
 export async function getLocations(): Promise<Location[]> {
-  const data = await client.fetch<Location[]>(LOCATIONS_QUERY)
+  const data = await client.fetch<Location[]>(LOCATIONS_QUERY, {}, { next: { revalidate: 60, tags: ['location'] } })
   return data ?? []
 }

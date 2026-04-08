@@ -23,7 +23,7 @@ const VIDEOS_QUERY = `*[_type == "video"] | order(publishedAt desc) {
 }`
 
 export async function getVideos(): Promise<Video[]> {
-  const data = await client.fetch<Video[]>(VIDEOS_QUERY)
+  const data = await client.fetch<Video[]>(VIDEOS_QUERY, {}, { next: { revalidate: 60, tags: ['video'] } })
   return data ?? []
 }
 
@@ -39,6 +39,6 @@ const VIDEO_BY_SLUG_QUERY = `*[_type == "video" && slug.current == $slug][0] {
 }`
 
 export async function getVideoBySlug(slug: string): Promise<Video | null> {
-  const data = await client.fetch<Video | null>(VIDEO_BY_SLUG_QUERY, { slug })
+  const data = await client.fetch<Video | null>(VIDEO_BY_SLUG_QUERY, { slug }, { next: { revalidate: 60, tags: ['video'] } })
   return data
 }

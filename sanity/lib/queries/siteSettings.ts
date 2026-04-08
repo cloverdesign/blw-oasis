@@ -41,6 +41,6 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
       ctas[] { key, label, href, isExternal }
     }`,
     {},
-    { next: { revalidate: 60 } },
+    { next: { revalidate: 60, tags: ['siteSettings'] } },
   )
 }

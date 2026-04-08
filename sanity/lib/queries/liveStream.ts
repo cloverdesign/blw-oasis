@@ -14,6 +14,6 @@ export async function getLiveStream(): Promise<LiveStream | null> {
       embedCode
     }`,
     {},
-    { next: { revalidate: 60 } },
+    { next: { revalidate: 60, tags: ['liveStream'] } },
   )
 }
