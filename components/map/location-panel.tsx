@@ -60,9 +60,9 @@ export function LocationPanel({
   )
 
   return (
-    <div className={cn("flex flex-col", className)}>
+    <div className={cn("flex min-h-0 flex-1 flex-col overflow-hidden", className)}>
       {/* Header */}
-      <div className="flex items-center justify-between px-5 pt-5 pb-3">
+      <div className="flex shrink-0 items-center justify-between px-5 pt-5 pb-3">
         <h2 className="font-heading text-lg uppercase tracking-wide">
           All Locations
         </h2>
@@ -75,21 +75,26 @@ export function LocationPanel({
       </div>
 
       {/* Search */}
-      <div className="px-5 pb-3">
-        <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-          <Search className="size-4 shrink-0 text-muted-foreground" />
+      <div className="shrink-0 px-5 pb-3">
+        <div
+          className={cn(
+            "flex items-center gap-2 rounded-xl border border-input bg-background px-3 py-2 shadow-xs transition-[color,box-shadow]",
+            "focus-within:border-ring focus-within:ring-[3px] focus-within:ring-ring/50"
+          )}
+        >
+          <Search className="size-4 shrink-0 text-muted-foreground" aria-hidden />
           <input
             type="text"
             placeholder="Search locations..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+            className="w-full min-w-0 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
           />
         </div>
       </div>
 
       {/* List */}
-      <div className="flex-1 overflow-y-auto px-3 pb-3">
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-3 pb-3">
         {filtered.length === 0 ? (
           <p className="px-2 py-4 text-center text-sm text-muted-foreground">
             No locations found.

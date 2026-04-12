@@ -89,7 +89,7 @@ export default function Nav() {
     <>
       <nav
         className={cn(
-          "fixed w-full z-[999] flex justify-between items-center py-1 px-10",
+          "fixed w-full z-[1001] flex justify-between items-center py-1 px-10",
           "transition-transform duration-300 ease-in-out",
           isScrolled && "bg-background border border-secondary",
           !isNavVisible && "-translate-y-full",

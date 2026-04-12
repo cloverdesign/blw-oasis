@@ -12,7 +12,7 @@ export const Faiths = () => {
         "We Believe in eternal life for the saved and eternal judgment for the lost."
     ]
     return (
-        <section className="flex flex-col items-center gap-10 lg:gap-20  px-4 lg:px-8 mt-[144px]">
+        <section className="flex flex-col items-center gap-10 lg:gap-20 px-4 lg:px-8 mt-12 lg:mt-20">
             <div className="w-full flex flex-col gap-8 px-4 lg:flex-row lg:items-center lg:justify-between lg:px-10">
                 <h2 className="font-heading text-4xl capitalize lg:text-6xl">
                     Grounded in <br />Faith, Guided by <br /> Truth.

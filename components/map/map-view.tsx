@@ -97,13 +97,14 @@ function FlyToSelected({
     const loc = locations.find((l) => l._id === selectedId)
     if (loc?.coordinates) {
       const { lat, lng } = loc.coordinates
+      const targetZoom = Math.max(map.getZoom(), 11)
       const reducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)"
       ).matches
       if (reducedMotion) {
-        map.setView([lat, lng], map.getZoom())
+        map.setView([lat, lng], targetZoom)
       } else {
-        map.flyTo([lat, lng], map.getZoom(), { duration: 0.5 })
+        map.flyTo([lat, lng], targetZoom, { duration: 0.5 })
       }
     }
   }, [selectedId, locations, map])

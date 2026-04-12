@@ -2,7 +2,7 @@
 
 import { forwardRef } from "react"
 import { Mail, MapPin, Phone } from "lucide-react"
-import { ArrowUpRight, ChurchSide, FavouriteBook, Plus } from "iconoir-react"
+import { ArrowUpRight, ChurchSide, FavouriteBook } from "iconoir-react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { urlFor } from "@/sanity/lib/image"
@@ -78,7 +78,7 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
         </div>
 
         {/* Content */}
-        <div className="flex min-w-0 flex-1 flex-col gap-2 relative">
+        <div className="flex min-w-0 flex-1 flex-col gap-2">
           <h3 className="font-heading text-sm uppercase tracking-wide">
             {location.name}
           </h3>
@@ -99,35 +99,39 @@ export const LocationCard = forwardRef<HTMLDivElement, LocationCardProps>(
             {location.address && (
               <span className="flex items-center gap-1.5">
                 <MapPin className="size-3 shrink-0" />
-                <span className="truncate">{location.address}</span>
+                <span className="break-words">{location.address}</span>
               </span>
             )}
           </div>
 
-          <div className="flex gap-2 pt-1 absolute top-1 right-4">
-            {location.linkUrl && (
-              <a
-                href={location.linkUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="flex size-8 items-center justify-center rounded-full bg-white text-black transition-transform hover:scale-105"
-              >
-                <ArrowUpRight className="size-4" />
-              </a>
-            )}
-            {directionsUrl && (
-              <a
-                href={directionsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="flex size-8 items-center justify-center rounded-full bg-primary text-background transition-transform hover:scale-105"
-              >
-                <CompassIcon className="size-4" />
-              </a>
-            )}
-          </div>
+          {(location.linkUrl || directionsUrl) && (
+            <div className="flex flex-wrap gap-2 pt-1">
+              {location.linkUrl && (
+                <a
+                  href={location.linkUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex h-8 items-center gap-1.5 rounded-full bg-white px-3 text-xs font-medium text-black"
+                >
+                  <ArrowUpRight className="size-3 shrink-0" />
+                  Website
+                </a>
+              )}
+              {directionsUrl && (
+                <a
+                  href={directionsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex h-8 items-center gap-1.5 rounded-full bg-primary px-3 text-xs font-medium text-primary-foreground"
+                >
+                  <CompassIcon className="size-3 shrink-0" />
+                  Directions
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </div>
     )

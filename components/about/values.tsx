@@ -37,7 +37,7 @@ export const Values = () => {
         }
     ]
     return (
-        <section className="flex flex-col items-center gap-10 lg:gap-20  px-4 lg:px-8 mt-[144px]">
+        <section className="flex flex-col items-center gap-10 lg:gap-20 px-4 lg:px-8 mt-16 lg:mt-24">
             <Reveal>
                 <div className="relative">
                     <h2 className="text-4xl lg:text-7xl capitalize whitespace-nowrap text-center relative z-1">Our Culture & <br /> Core Values.</h2>
