@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function LocationsRoute({
   searchParams,
 }: {
-  searchParams: Promise<{ type?: string }>
+  searchParams: Promise<{ type?: string; id?: string }>
 }) {
   const [locations, params] = await Promise.all([
     getLocations(),
@@ -23,5 +23,16 @@ export default async function LocationsRoute({
       ? params.type
       : undefined
 
-  return <LocationsPage locations={locations} initialType={initialType} />
+  const initialSelectedId =
+    typeof params.id === "string" && params.id.length > 0
+      ? params.id
+      : undefined
+
+  return (
+    <LocationsPage
+      locations={locations}
+      initialType={initialType}
+      initialSelectedId={initialSelectedId}
+    />
+  )
 }

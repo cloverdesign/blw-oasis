@@ -99,7 +99,7 @@ export const Leadership = ({ leaders }: LeadershipProps) => {
   return (
     <section
       id="leadership"
-      className="scroll-mt-24 mt-144 flex flex-col items-center gap-10 px-4 lg:gap-20 lg:px-8"
+      className="scroll-mt-24 mt-12 flex flex-col items-center gap-10 px-4 lg:mt-20 lg:gap-20 lg:px-8"
     >
       <h2 className="text-center font-heading text-4xl capitalize lg:text-6xl">
         Meet Our <br /> Leadership.

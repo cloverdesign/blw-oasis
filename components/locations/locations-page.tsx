@@ -31,14 +31,40 @@ const MapView = dynamic(
 
 type LocationType = "all" | "campus" | "church"
 
+function resolveInitialSelection(
+  locations: Location[],
+  initialSelectedId: string | undefined,
+  initialType: "campus" | "church" | undefined
+): { selectedId: string | null; activeType: LocationType } {
+  if (initialSelectedId) {
+    const loc = locations.find((l) => l._id === initialSelectedId)
+    if (loc) {
+      return { selectedId: loc._id, activeType: loc.type }
+    }
+  }
+  return { selectedId: null, activeType: initialType ?? "all" }
+}
+
 interface LocationsPageProps {
   locations: Location[]
   initialType?: "campus" | "church"
+  initialSelectedId?: string
 }
 
-export function LocationsPage({ locations, initialType }: LocationsPageProps) {
-  const [selectedId, setSelectedId] = useState<string | null>(null)
-  const [activeType, setActiveType] = useState<LocationType>(initialType ?? "all")
+export function LocationsPage({
+  locations,
+  initialType,
+  initialSelectedId,
+}: LocationsPageProps) {
+  const initial = resolveInitialSelection(
+    locations,
+    initialSelectedId,
+    initialType
+  )
+  const [selectedId, setSelectedId] = useState<string | null>(
+    initial.selectedId
+  )
+  const [activeType, setActiveType] = useState<LocationType>(initial.activeType)
   const [searchQuery, setSearchQuery] = useState("")
   const [sheetOpen, setSheetOpen] = useState(false)
   const [sheetContainer, setSheetContainer] = useState<HTMLDivElement | null>(null)
@@ -68,6 +94,15 @@ export function LocationsPage({ locations, initialType }: LocationsPageProps) {
       el?.scrollIntoView({ behavior: "smooth", block: "nearest" })
     }
   }, [selectedId])
+
+  // Deep link: open mobile sheet when landing with ?id=
+  useEffect(() => {
+    if (!initialSelectedId) return
+    if (typeof window === "undefined") return
+    if (window.innerWidth < 1024) {
+      setSheetOpen(true)
+    }
+  }, [initialSelectedId])
 
   const handleMarkerClick = useCallback((id: string) => {
     setSelectedId(id)

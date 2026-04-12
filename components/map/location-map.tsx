@@ -98,14 +98,14 @@ export function LocationMap({ locations, mode, showLoading = true, scrollWheelZo
 
       {/* Desktop: overlay panel */}
       {isDesktop && panelOpen && (
-        <div className="absolute bottom-4 left-4 z-1000 w-[380px] overflow-hidden rounded-2xl border border-white/10 bg-background/90 backdrop-blur-xl">
+        <div className="absolute bottom-4 left-4 top-4 z-1000 flex min-h-0 w-[min(380px,calc(100%-2rem))] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-white/10 bg-background/90 backdrop-blur-xl">
           <LocationPanel
             locations={locations}
             selectedId={selectedId}
             onSelect={handleCardSelect}
             onClose={() => setPanelOpen(false)}
             onFilteredIdsChange={handleFilteredIdsChange}
-            className="h-full"
+            className="min-h-0 flex-1"
           />
         </div>
       )}
@@ -134,7 +134,7 @@ export function LocationMap({ locations, mode, showLoading = true, scrollWheelZo
             side="bottom"
             showCloseButton={false}
             container={sheetContainer}
-            className="max-h-[70%]"
+            className="flex max-h-[min(70dvh,560px)] min-h-0 flex-col overflow-hidden"
           >
             <SheetTitle className="sr-only">Locations</SheetTitle>
             <LocationPanel
@@ -143,7 +143,7 @@ export function LocationMap({ locations, mode, showLoading = true, scrollWheelZo
               onSelect={handleCardSelect}
               onClose={() => setPanelOpen(false)}
               onFilteredIdsChange={handleFilteredIdsChange}
-              className="h-full"
+              className="min-h-0 flex-1"
             />
           </SheetContent>
         </Sheet>

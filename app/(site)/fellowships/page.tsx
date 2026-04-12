@@ -6,9 +6,9 @@ import { FindLocation } from "@/components/churches/find-location"
 import { getLocations } from "@/sanity/lib/queries/locations"
 
 export const metadata: Metadata = {
-  title: "Fellowship",
+  title: "Fellowships",
   description:
-    "Find BLW Oasis campuses and churches near you. Join a fellowship and be part of a vibrant community of believers.",
+    "Find BLW Oasis campuses and churches near you. Join our fellowships and be part of a vibrant community of believers.",
 };
 
 export default async function ChurchesPage() {
@@ -19,8 +19,8 @@ export default async function ChurchesPage() {
     return (
         <main>
             <Hero />
-            <CampusesSection campuses={campuses} />
             <ChurchesSection churches={churches} />
+            <CampusesSection campuses={campuses} />
             <FindLocation />
         </main>
     )

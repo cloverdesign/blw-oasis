@@ -1,10 +1,14 @@
+import Link from "next/link"
+import { MapPin } from "lucide-react"
 import { urlFor } from "@/sanity/lib/image"
+import { Button } from "@/components/ui/button"
 import type { Location } from "@/sanity/lib/queries/locations"
 
 export function ChurchCard({ location }: { location: Location }) {
     const imageUrl = location.image?.asset
         ? urlFor(location.image.asset).width(600).height(800).url()
         : null
+    const mapHref = `/locations?type=${location.type}&id=${encodeURIComponent(location._id)}`
 
     return (
         <div
@@ -47,11 +51,22 @@ export function ChurchCard({ location }: { location: Location }) {
                 </svg>
             )}
 
-            <div className="bg-background text-foreground p-4 rounded-2xl w-fit">
+            <div className="flex w-fit max-w-md flex-col gap-3 rounded-2xl bg-background p-4 text-foreground">
                 <h3 className="font-heading text-lg">{location.name}</h3>
                 {location.address && (
                     <p className="text-sm text-muted-foreground">{location.address}</p>
                 )}
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-9 w-fit gap-2 px-2 text-foreground -ml-2"
+                    asChild
+                >
+                    <Link href={mapHref}>
+                        <MapPin className="size-4 shrink-0" aria-hidden />
+                        View on map
+                    </Link>
+                </Button>
             </div>
         </div>
     )
