@@ -15,6 +15,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet"
 import Logo from "@/assets/logo.svg";
+import { LocationsBackButton } from "./back-button"
 
 
 const MapView = dynamic(
@@ -130,7 +131,8 @@ export function LocationsPage({
   const sidebarContent = (
     <>
       {/* Header */}
-      <div className="px-5 pt-5 pb-4">
+      <div className="flex items-center gap-2 px-5 pt-5 pb-4">
+        <LocationsBackButton />
         <h2 className="font-heading text-[32px] uppercase tracking-wide">
           All Locations
         </h2>

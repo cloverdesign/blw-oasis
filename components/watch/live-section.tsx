@@ -1,27 +1,92 @@
+import { getYouTubeEmbedUrl } from "@/lib/youtube"
+import Image from "next/image"
+
+type PlaceholderImage = {
+  image: { _id: string; url: string } | null
+  alt: string | null
+} | null
+
 type LiveSectionProps = {
-    title: string | null
-    embedCode: string
+  title: string | null
+  isLive: boolean
+  embedCode: string | null
+  livePlaceholder: PlaceholderImage
+  offlinePlaceholder: PlaceholderImage
 }
 
-export const LiveSection = ({ title, embedCode }: LiveSectionProps) => {
-    return (
-        <section className="px-4 lg:px-8 pb-20 lg:pb-32">
-            <div className="max-w-5xl mx-auto flex flex-col gap-6">
-                <div className="flex items-center gap-3">
-                    <span className="relative flex size-3">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
-                        <span className="relative inline-flex rounded-full size-3 bg-red-600" />
-                    </span>
-                    <h2 className="text-2xl lg:text-4xl font-semibold">
-                        {title ?? "We're Live"}
-                    </h2>
-                </div>
+function getEmbedUrl(embedCode: string | null): string | null {
+  if (!embedCode) return null
 
-                <div
-                    className="aspect-video w-full rounded-3xl overflow-hidden bg-foreground [&>iframe]:w-full [&>iframe]:h-full [&>iframe]:border-0"
-                    dangerouslySetInnerHTML={{ __html: embedCode }}
-                />
-            </div>
-        </section>
-    )
+  const trimmed = embedCode.trim()
+  const iframeSrcMatch = trimmed.match(/src=["']([^"']+)["']/i)
+  const candidateUrl = iframeSrcMatch?.[1] ?? trimmed
+
+  const normalizedYoutubeUrl = getYouTubeEmbedUrl(candidateUrl)
+  return normalizedYoutubeUrl ?? candidateUrl
+}
+
+export const LiveSection = ({
+  title,
+  isLive,
+  embedCode,
+  livePlaceholder,
+  offlinePlaceholder,
+}: LiveSectionProps) => {
+  const embedUrl = getEmbedUrl(embedCode)
+  const currentPlaceholder = isLive ? livePlaceholder : offlinePlaceholder
+
+  return (
+    <section className="px-4 lg:px-10 pb-20 lg:pb-32">
+      <div className="flex flex-col gap-6">
+        {isLive && (
+          <div className="flex items-center gap-3">
+            <span className="relative flex size-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
+              <span className="relative inline-flex rounded-full size-3 bg-red-600" />
+            </span>
+            <h2 className="text-2xl lg:text-4xl font-semibold">
+              {title ?? "We're Live"}
+            </h2>
+          </div>
+        )}
+
+        {isLive && embedUrl ? (
+          <div className="aspect-video w-full rounded-4xl overflow-hidden bg-foreground">
+            <iframe
+              src={embedUrl}
+              title={title ?? "Live stream"}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              className="h-full w-full border-0"
+            />
+          </div>
+        ) : currentPlaceholder?.image?.url ? (
+          <div className="relative aspect-video w-full overflow-hidden rounded-4xl bg-foreground">
+            <Image
+              src={currentPlaceholder.image.url}
+              alt={currentPlaceholder.alt ?? (isLive ? "Live stream placeholder" : "Offline live stream placeholder")}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 80vw"
+            />
+            {!isLive && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/35">
+                <p className="rounded-full bg-black/60 px-4 py-2 text-sm font-medium text-white">
+                  We&apos;re currently offline
+                </p>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="aspect-video w-full rounded-4xl bg-foreground/90 text-white flex items-center justify-center text-center px-6">
+            <p className="text-sm lg:text-base">
+              {isLive
+                ? "The livestream will be available shortly."
+                : "No livestream is active right now. Check back soon."}
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
+  )
 }

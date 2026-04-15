@@ -40,7 +40,10 @@ export default async function Home() {
       {showLive && (
         <LiveSection
           title={liveStream.title}
-          embedCode={liveStream.embedCode!}
+          isLive={Boolean(liveStream.isEnabled)}
+          embedCode={liveStream.embedCode}
+          livePlaceholder={liveStream.livePlaceholder}
+          offlinePlaceholder={liveStream.offlinePlaceholder}
         />
       )}
       <HomeMap locations={locations} siteSettings={siteSettings} />

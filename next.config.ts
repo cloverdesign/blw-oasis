@@ -5,7 +5,7 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.youtube.com https://unpkg.com https://core.sanity-cdn.com https://www.googletagmanager.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.youtube.com https://www.youtube-nocookie.com https://unpkg.com https://core.sanity-cdn.com https://www.googletagmanager.com",
       "style-src 'self' 'unsafe-inline' https://unpkg.com",
       "img-src 'self' data: blob: https://cdn.sanity.io https://img.youtube.com https://i.ytimg.com https://*.basemaps.cartocdn.com https://*.tile.openstreetmap.org https://www.google-analytics.com",
       "font-src 'self' https://fonts.gstatic.com",

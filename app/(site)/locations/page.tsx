@@ -29,10 +29,12 @@ export default async function LocationsRoute({
       : undefined
 
   return (
-    <LocationsPage
-      locations={locations}
-      initialType={initialType}
-      initialSelectedId={initialSelectedId}
-    />
+    <div className="relative">
+      <LocationsPage
+        locations={locations}
+        initialType={initialType}
+        initialSelectedId={initialSelectedId}
+      />
+    </div>
   )
 }
