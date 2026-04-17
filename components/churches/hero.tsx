@@ -11,13 +11,16 @@ export async function Hero() {
         <section className="h-[50vh] lg:h-screen">
             <div className="overflow-hidden size-full relative">
                 <div className="px-4 flex flex-col gap-8 lg:px-10 absolute bottom-20 left-10 z-1000 text-background">
-                    <Reveal as="h1" amount={0} className="text-5xl lg:text-8xl capitalize">Our <br /> Structure.</Reveal>
+                    <Reveal as="h1" amount={0} className="text-5xl lg:text-8xl capitalize">
+                        Our <br /> Structure.
+                    </Reveal>
                     <Reveal amount={0} delay={0.15}>
                         <p className="lg:w-[50%]">
                             Oasis is made up of student-led fellowships across college campuses in North America, alongside church communities that operate both on campus and off campus in key regions.
                         </p>
                     </Reveal>
                 </div>
+                <div className="bg-gradient-to-t from-[#000000ab] to-[#00242b00] h-full w-full absolute bottom-0 left-0 z-999" />
                 <LocationMap locations={locations} mode="static" showLoading={false} />
                 <Link href="/locations" className="absolute bottom-10 right-10 z-1000 bg-accent text-foreground rounded-full p-4 active:scale-95 transition-all">
                     <GlobeHemisphereWestIcon className="size-10" />

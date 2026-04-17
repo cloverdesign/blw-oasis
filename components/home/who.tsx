@@ -1,7 +1,7 @@
 export const Who = () => {
   return (
     <section className="lg:min-h-screen flex flex-col lg:flex-row justify-center items-center gap-10 px-10 lg:gap-32 lg:px-32 py-32 bg-foreground text-background">
-      <h2 className="w-full whitespace-nowrap text-left text-2xl capitalize lg:text-4xl">
+      <h2 className="w-full whitespace-nowrap text-center lg:text-left text-2xl capitalize lg:text-4xl">
         Who we are.
       </h2>
       <p className="text-xl lg:text-4xl text-center lg:text-left">

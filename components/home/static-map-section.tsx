@@ -14,7 +14,7 @@ export function StaticMapSection({ children, siteSettings }: StaticMapSectionPro
     return (
         <section className="relative flex flex-col gap-10 pt-44 lg:gap-20">
             <div className="flex flex-col gap-8 items-center lg:flex-row lg:items-end lg:justify-between">
-                <h1 className="font-heading text-4xl capitalize lg:text-6xl">
+                <h1 className="font-heading text-center lg:text-left text-4xl capitalize lg:text-6xl">
                     Your Campus <br /> Could Be Next.
                 </h1>
                 <div className="flex max-w-md flex-col gap-6 text-center lg:text-right">
