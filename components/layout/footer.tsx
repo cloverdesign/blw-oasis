@@ -17,7 +17,6 @@ export const Footer = () => {
                 { label: "Get Connected", href: "/contact" },
                 { label: "Find a Campus", href: "/locations?type=campus" },
                 { label: "Find a Church", href: "/locations?type=church" },
-                { label: "Start Oasis", href: "/start-oasis" },
             ],
         },
         {
