@@ -35,8 +35,8 @@ export const Events = ({ events }: EventsProps) => {
     return (
         <section className="py-44 flex flex-col items-center gap-10 lg:gap-20 mx-10">
             <div className="w-full px-4 lg:px-10 flex justify-center">
-                <div className="text-center w-[50%] lg:w-2/5 flex flex-col gap-8">
-                    <h1 className="text-4xl lg:text-6xl capitalize">
+                <div className="text-center lg:w-2/5 flex flex-col gap-8">
+                    <h1 className="text-4xl lg:text-6xl capitalize text-center">
                         What&apos;s Happening <br /> at Oasis.
                     </h1>
                     <p>
