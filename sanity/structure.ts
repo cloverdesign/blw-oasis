@@ -1,15 +1,69 @@
 import type {StructureResolver} from 'sanity/structure'
 
-// https://www.sanity.io/docs/structure-builder-cheat-sheet
+const SINGLETON_TYPES = ['siteSettings', 'highlightReel', 'liveStream', 'homePageImages', 'aboutPageImages', 'givePageImages', 'contactPageImages', 'resourcesPageImages']
+
 export const structure: StructureResolver = (S) =>
   S.list()
-    .title('Blog')
+    .title('Content')
     .items([
-      S.documentTypeListItem('post').title('Posts'),
-      S.documentTypeListItem('category').title('Categories'),
-      S.documentTypeListItem('author').title('Authors'),
+      S.documentTypeListItem('location').title('Locations'),
+      S.documentTypeListItem('event').title('Events'),
+      S.documentTypeListItem('video').title('Videos'),
+      S.documentTypeListItem('leader').title('Leaders'),
+      S.divider(),
+      S.listItem()
+        .title('Site Settings')
+        .child(
+          S.document().schemaType('siteSettings').documentId('siteSettings'),
+        ),
+      S.listItem()
+        .title('Highlight Reel')
+        .child(
+          S.document().schemaType('highlightReel').documentId('highlightReel'),
+        ),
+      S.listItem()
+        .title('Live Stream')
+        .child(
+          S.document().schemaType('liveStream').documentId('liveStream'),
+        ),
+      S.divider(),
+      S.listItem()
+        .title('Page Images')
+        .child(
+          S.list()
+            .title('Page Images')
+            .items([
+              S.listItem()
+                .title('Home Page')
+                .child(
+                  S.document().schemaType('homePageImages').documentId('homePageImages'),
+                ),
+              S.listItem()
+                .title('About Page')
+                .child(
+                  S.document().schemaType('aboutPageImages').documentId('aboutPageImages'),
+                ),
+              S.listItem()
+                .title('Give Page')
+                .child(
+                  S.document().schemaType('givePageImages').documentId('givePageImages'),
+                ),
+              S.listItem()
+                .title('Contact Page')
+                .child(
+                  S.document().schemaType('contactPageImages').documentId('contactPageImages'),
+                ),
+              S.listItem()
+                .title('Resources Page')
+                .child(
+                  S.document().schemaType('resourcesPageImages').documentId('resourcesPageImages'),
+                ),
+            ]),
+        ),
       S.divider(),
       ...S.documentTypeListItems().filter(
-        (item) => item.getId() && !['post', 'category', 'author'].includes(item.getId()!),
+        (item) =>
+          item.getId() &&
+          !['location', 'event', 'video', 'leader', ...SINGLETON_TYPES].includes(item.getId()!),
       ),
     ])
