@@ -27,8 +27,15 @@ export default function Nav() {
     pathname.includes("/fellowship") || pathname.includes("/locations");
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    if (isOpen) {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    }
     return () => {
+      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
     };
   }, [isOpen]);
@@ -50,22 +57,28 @@ export default function Nav() {
   }, []);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const scrollY = window.scrollY;
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const scrollY = window.scrollY;
 
-      if (scrollY <= 0) {
-        setIsScrolled(false);
-        setIsNavVisible(true);
-      } else {
-        setIsScrolled(true);
-        if (scrollY < lastScrollY.current) {
+        if (scrollY <= 0) {
+          setIsScrolled(false);
           setIsNavVisible(true);
-        } else if (scrollY > lastScrollY.current && scrollY > 200) {
-          setIsNavVisible(false);
+        } else {
+          setIsScrolled(true);
+          if (scrollY < lastScrollY.current) {
+            setIsNavVisible(true);
+          } else if (scrollY > lastScrollY.current && scrollY > 200) {
+            setIsNavVisible(false);
+          }
         }
-      }
 
-      lastScrollY.current = scrollY;
+        lastScrollY.current = scrollY;
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -92,7 +105,8 @@ export default function Nav() {
           "fixed w-full z-[1001] flex justify-between items-center py-1 px-10",
           "transition-transform duration-300 ease-in-out",
           isScrolled && "bg-background border border-secondary",
-          !isNavVisible && "-translate-y-full",
+          // Auto-hide on scroll only at lg+; hiding the whole bar on mobile breaks touch/scroll on iOS
+          !isNavVisible && "lg:-translate-y-full",
           isDarkBgPage && !isScrolled && "text-background",
         )}
       >
@@ -122,7 +136,7 @@ export default function Nav() {
         <button
           type="button"
           aria-expanded={isOpen}
-          aria-controls="mobile-nav-panel"
+          aria-controls={isOpen ? "mobile-nav-panel" : undefined}
           aria-label={isOpen ? "Close menu" : "Open menu"}
           onClick={() => setIsOpen((v) => !v)}
           className="lg:hidden p-2 -m-2"
@@ -131,49 +145,47 @@ export default function Nav() {
         </button>
       </nav>
 
-      {/* Mobile panel - slides from top */}
-      <div
-        id="mobile-nav-panel"
-        data-state={isOpen ? "open" : "closed"}
-        className={cn(
-          "fixed inset-x-0 top-0 z-[9999] bg-background px-10 pt-11 pb-8 shadow-lg border-b border-border",
-          "data-[state=open]:animate-in data-[state=closed]:animate-out",
-          "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-          "data-[state=open]:slide-in-from-top-4 data-[state=closed]:slide-out-to-top-4",
-          "duration-200",
-          !isOpen && "pointer-events-none invisible",
-        )}
-      >
-        <div className="flex justify-between items-center mb-8">
-          <Link href="/" onClick={close} className="flex items-center group">
-            <Logo className="group-hover:text-primary" />
-          </Link>
-          <button
-            type="button"
-            aria-label="Close menu"
-            onClick={close}
-            className="p-2 -m-2"
-          >
-            <Xmark className="size-6" />
-          </button>
-        </div>
-        <ul className="flex flex-col gap-2">
-          {navItems.map((item) => (
-            <NavItem
-              key={item.href}
-              label={item.label}
-              href={item.href}
+      {/* Only mount when open so a fixed high-z layer never sits over the page on iOS */}
+      {isOpen ? (
+        <div
+          id="mobile-nav-panel"
+          data-state="open"
+          className={cn(
+            "fixed inset-x-0 top-0 z-[9999] bg-background px-10 pt-11 pb-8 shadow-lg border-b border-border",
+            "animate-in fade-in-0 slide-in-from-top-4 duration-200",
+          )}
+        >
+          <div className="flex justify-between items-center mb-8">
+            <Link href="/" onClick={close} className="flex items-center group">
+              <Logo className="group-hover:text-primary" />
+            </Link>
+            <button
+              type="button"
+              aria-label="Close menu"
               onClick={close}
-              mobile
-            />
-          ))}
-        </ul>
-        <Button variant="default" asChild className="mt-6 w-full">
-          <Link href="/contact" onClick={close}>
-            Contact Us
-          </Link>
-        </Button>
-      </div>
+              className="p-2 -m-2"
+            >
+              <Xmark className="size-6" />
+            </button>
+          </div>
+          <ul className="flex flex-col gap-2">
+            {navItems.map((item) => (
+              <NavItem
+                key={item.href}
+                label={item.label}
+                href={item.href}
+                onClick={close}
+                mobile
+              />
+            ))}
+          </ul>
+          <Button variant="default" asChild className="mt-6 w-full">
+            <Link href="/contact" onClick={close}>
+              Contact Us
+            </Link>
+          </Button>
+        </div>
+      ) : null}
     </>
   );
 }
