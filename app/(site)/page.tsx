@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Events } from "@/components/home/events";
 import { Hero } from "@/components/home/hero";
 import { HeroGallery } from "@/components/home/hero-gallery";
-import { HomeMap } from "@/components/home/home-map";
+import { DeferredHomeMap } from "@/components/home/deferred-home-map";
 import { Who } from "@/components/home/who";
 import { LiveSection } from "@/components/watch/live-section";
 import { getEvents } from "@/sanity/lib/queries/events";
@@ -46,7 +46,7 @@ export default async function Home() {
           offlinePlaceholder={liveStream.offlinePlaceholder}
         />
       )}
-      <HomeMap locations={locations} siteSettings={siteSettings} />
+      <DeferredHomeMap locations={locations} siteSettings={siteSettings} />
     </main>
   );
 }
