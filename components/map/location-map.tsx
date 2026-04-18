@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useRef, useState } from "react"
+import { useCallback, useLayoutEffect, useRef, useState } from "react"
 import dynamic from "next/dynamic"
 import { useMediaQuery } from "@/lib/use-media-query"
 import type { Location } from "@/sanity/lib/queries/locations"
@@ -44,7 +44,7 @@ interface LocationMapProps {
 
 export function LocationMap({ locations, mode, showLoading = true, scrollWheelZoom, enableClustering, showControls }: LocationMapProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null)
-  const [panelOpen, setPanelOpen] = useState(true)
+  const [panelOpen, setPanelOpen] = useState(false)
   const [filteredIds, setFilteredIds] = useState<string[]>(
     locations.map((l) => l._id)
   )
@@ -53,6 +53,10 @@ export function LocationMap({ locations, mode, showLoading = true, scrollWheelZo
   )
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const isDesktop = useMediaQuery("(min-width: 1024px)")
+
+  useLayoutEffect(() => {
+    if (isDesktop) setPanelOpen(true)
+  }, [isDesktop])
 
   const handleMarkerClick = useCallback((id: string) => {
     setSelectedId(id)
