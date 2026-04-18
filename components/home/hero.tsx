@@ -18,7 +18,7 @@ export const Hero = ({ siteSettings, homeImages }: HeroProps) => {
 
     return (
         <section className="flex flex-col items-center gap-10 lg:gap-20 lg:px-10 lg:min-h-[calc(100vh-144px)] justify-between relative">
-            <Reveal as="h1" amount={0} className="text-5xl lg:text-8xl text-center capitalize sticky top-0 mt-20">Welcome to oasis.</Reveal>
+            <Reveal as="h1" className="text-5xl lg:text-8xl text-center capitalize mt-20 lg:sticky lg:top-0">Welcome to oasis.</Reveal>
             <div
                 style={{
                     backgroundImage: `url(${bgImage})`,
@@ -28,7 +28,7 @@ export const Hero = ({ siteSettings, homeImages }: HeroProps) => {
                 }}
                 className="relative lg:h-[60vh] w-full lg:rounded-t-4xl flex flex-col items-center justify-between gap-10 lg:gap-20 px-8 lg:px-20 py-20"
             >
-                <Reveal as="h1" delay={0.15} amount={0} className="relative z-2 text-background text-5xl lg:text-8xl text-center capitalize">Miracles happen here.</Reveal>
+                <Reveal as="h1" delay={0.15} className="relative z-2 text-background text-5xl lg:text-8xl text-center capitalize">Miracles happen here.</Reveal>
                 <div className="relative z-2 flex flex-col lg:flex-row gap-10 items-center justify-between">
                     <p className="text-background text-center lg:text-left w-full lg:w-1/2">Oasis is a Christian campus ministry reaching students across the United States, creating spaces where faith comes alive, purpose is discovered, and lives are transformed.</p>
 
