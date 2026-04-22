@@ -36,7 +36,7 @@ export const LiveSection = ({
   const currentPlaceholder = isLive ? livePlaceholder : offlinePlaceholder
 
   return (
-    <section className="px-4 lg:px-10 pb-20 lg:pb-32">
+    <section className="px-4 lg:px-10">
       <div className="flex flex-col gap-6">
         {isLive && (
           <div className="flex items-center gap-3">
@@ -51,7 +51,7 @@ export const LiveSection = ({
         )}
 
         {isLive && embedUrl ? (
-          <div className="aspect-video w-full rounded-4xl overflow-hidden bg-foreground">
+          <div className="aspect-[4/5] w-full rounded-4xl overflow-hidden bg-foreground lg:aspect-video">
             <iframe
               src={embedUrl}
               title={title ?? "Live stream"}
@@ -61,7 +61,7 @@ export const LiveSection = ({
             />
           </div>
         ) : currentPlaceholder?.image?.url ? (
-          <div className="relative aspect-video w-full overflow-hidden rounded-4xl bg-foreground">
+          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-4xl bg-foreground lg:aspect-video">
             <Image
               src={currentPlaceholder.image.url}
               alt={currentPlaceholder.alt ?? (isLive ? "Live stream placeholder" : "Offline live stream placeholder")}
@@ -78,7 +78,7 @@ export const LiveSection = ({
             )}
           </div>
         ) : (
-          <div className="aspect-video w-full rounded-4xl bg-foreground/90 text-white flex items-center justify-center text-center px-6">
+          <div className="aspect-[4/5] w-full rounded-4xl bg-foreground/90 text-white flex items-center justify-center text-center px-6 lg:aspect-video">
             <p className="text-sm lg:text-base">
               {isLive
                 ? "The livestream will be available shortly."

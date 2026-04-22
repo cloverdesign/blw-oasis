@@ -47,7 +47,7 @@ export const Values = () => {
                 </div>
             </Reveal>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:p-16 px-8'>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:p-16">
                 {
                     values.map((value, index) => (
                         <Reveal key={value.title} delay={index * 0.08}>
