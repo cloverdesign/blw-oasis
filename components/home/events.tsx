@@ -33,7 +33,7 @@ export const Events = ({ events }: EventsProps) => {
     if (events.length === 0) return null
 
     return (
-        <section className="py-44 flex flex-col items-center gap-10 lg:gap-20 mx-10">
+        <section className="pt-44 flex flex-col items-center gap-10 lg:gap-20 mx-10">
             <div className="w-full px-4 lg:px-10 flex justify-center">
                 <div className="text-center lg:w-2/5 flex flex-col gap-8">
                     <h1 className="text-4xl lg:text-6xl capitalize text-center">
@@ -120,13 +120,13 @@ const EventCard = ({
             <p className="relative z-10 text-sm">
                 {description}
             </p>
-            <div className="relative z-10 flex gap-3 text-xs">
-                <span className="px-3 h-8 flex gap-2 items-center justify-center rounded-full bg-foreground text-background">
-                    <MapPin className="size-4" />
+            <div className="relative z-10 flex flex-wrap gap-3 text-xs">
+                <span className="inline-flex max-w-full flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full bg-foreground px-3 py-1.5 text-background">
+                    <MapPin className="size-4 shrink-0" />
                     {location}
                 </span>
-                <span className="px-3 h-8 flex gap-2 items-center justify-center rounded-full bg-accent text-accent-foreground">
-                    <ClockIcon className="size-4" />
+                <span className="inline-flex max-w-full flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full bg-accent px-3 py-1.5 text-accent-foreground">
+                    <ClockIcon className="size-4 shrink-0" />
                     {when}
                 </span>
             </div>

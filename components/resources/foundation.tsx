@@ -16,12 +16,12 @@ export const Foundation = ({ resourcesImages }: FoundationProps) => {
 
   return (
     <section id="foundation-school" className="scroll-mt-24 p-4 lg:p-8">
-      <div className="p-4 lg:p-8 bg-primary text-background flex lg:flex-row flex-col-reverse overflow-hidden gap-10 rounded-4xl relative">
+      <div className="p-8 bg-primary text-background flex lg:flex-row flex-col-reverse overflow-hidden gap-10 rounded-4xl relative">
         <div className="flex flex-col justify-between lg:w-3/5 h-full lg:pb-5 gap-12">
           <h2 className="text-5xl lg:text-7xl capitalize whitespace-nowrap">
             Foundation <br /> School.
           </h2>
-          <div className="flex flex-col gap-10 w-3/4">
+          <div className="flex flex-col gap-10 lg:w-3/4">
             <p className="text-lg lg:text-2xl">
               Foundation School is a structured discipleship program designed to
               help believers understand the fundamentals of the Christian faith.

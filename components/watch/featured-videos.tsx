@@ -7,7 +7,7 @@ type FeaturedVideosProps = {
 
 export const FeaturedVideos = ({ videos }: FeaturedVideosProps) => {
     return (
-        <section className="px-4 lg:px-8 py-20 lg:py-32">
+        <section className="px-4 lg:px-8 pt-20 lg:py-32">
             <div className="flex flex-col lg:flex-row justify-between gap-6 mb-12 lg:mb-16">
                 <h2 className="text-4xl lg:text-6xl capitalize">
                     Featured <br /> Videos.
