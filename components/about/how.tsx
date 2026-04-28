@@ -25,7 +25,7 @@ export const How = ({ aboutImages }: HowProps) => {
                 </div>
 
                 <p className="text-lg lg:text-2xl px-10 lg:p-16 lg:w-3/5">
-                    Oasis is built on the global vision of Chris Oyakhilome, whose ministry, LoveWorld Inc., has impacted millions around the world with the message of faith, hope, and salvation through Jesus Christ.
+                    Oasis is built on the global vision of Pastor Chris Oyakhilome, whose ministry, LoveWorld Inc., has impacted millions around the world with the message of faith, hope, and salvation through Jesus Christ.
                     <br />
                     <br />
                     With a strong emphasis on evangelism, discipleship, and spiritual growth, this vision extends to college campuses; raising students who are bold in their faith and committed to transforming their world.
