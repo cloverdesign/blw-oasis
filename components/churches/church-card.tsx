@@ -2,6 +2,7 @@ import Link from "next/link"
 import { MapPin } from "lucide-react"
 import { urlFor } from "@/sanity/lib/image"
 import { Button } from "@/components/ui/button"
+import { getCitySubtitle } from "@/lib/utils"
 import type { Location } from "@/sanity/lib/queries/locations"
 
 export function ChurchCard({ location }: { location: Location }) {
@@ -9,6 +10,7 @@ export function ChurchCard({ location }: { location: Location }) {
         ? urlFor(location.image.asset).width(600).height(800).url()
         : null
     const mapHref = `/locations?type=${location.type}&id=${encodeURIComponent(location._id)}`
+    const subtitle = location.subtitle ?? getCitySubtitle(location.address)
 
     return (
         <div
@@ -52,7 +54,12 @@ export function ChurchCard({ location }: { location: Location }) {
             )}
 
             <div className="flex w-fit max-w-md flex-col gap-3 rounded-2xl bg-background p-4 text-foreground">
-                <h3 className="font-heading text-lg">{location.name}</h3>
+                <div className="flex flex-col gap-1">
+                    <h3 className="font-heading text-lg">{location.name}</h3>
+                    {subtitle && (
+                        <p className="text-sm capitalize text-muted-foreground">{subtitle}</p>
+                    )}
+                </div>
                 {location.address && (
                     <p className="text-sm text-muted-foreground">{location.address}</p>
                 )}

@@ -56,6 +56,13 @@ export const locationType = defineType({
       },
     }),
     defineField({
+      name: 'subtitle',
+      title: 'Subtitle',
+      type: 'string',
+      description: 'Short location label shown under the title (e.g., "Baltimore, MD"). Leave blank to auto-derive from the address.',
+      hidden: ({ parent }) => parent?.type !== 'church',
+    }),
+    defineField({
       name: 'universities',
       title: 'Universities',
       type: 'array',
