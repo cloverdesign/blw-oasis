@@ -19,6 +19,7 @@ export const Hero = ({ siteSettings, homeImages }: HeroProps) => {
     return (
         <section className="flex flex-col items-center gap-10 lg:gap-20 lg:px-10 lg:min-h-[calc(100vh-144px)] justify-between relative">
             <Reveal as="h1" className="text-5xl lg:text-8xl text-center capitalize mt-20 lg:sticky lg:top-0">Welcome to oasis.</Reveal>
+            <Reveal as="p" delay={0.1} className="text-center text-lg lg:text-2xl -mt-6 lg:-mt-12">A LoveWorld Campus Ministry</Reveal>
             <div
                 style={{
                     backgroundImage: `url(${bgImage})`,

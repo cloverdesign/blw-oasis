@@ -7,6 +7,7 @@ export interface Location {
   phone: string | null
   email: string | null
   address: string | null
+  subtitle: string | null
   coordinates: { lat: number; lng: number } | null
   image: { asset: { _id: string; _ref?: string }; alt?: string } | null
   type: 'church' | 'campus'
@@ -21,6 +22,7 @@ const LOCATIONS_QUERY = `*[_type == "location"] | order(name asc) {
   phone,
   email,
   address,
+  subtitle,
   "coordinates": coordinates { lat, lng },
   "image": image { asset->, alt },
   type,

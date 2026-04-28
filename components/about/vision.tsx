@@ -2,11 +2,11 @@ export const Vision = () => {
     const content = [
         {
             title: "our vision.",
-            description: "A generation of students transformed by the Word of God — grounded in faith, bold in leadership, and committed to changing their campuses and the world."
+            description: "To take the divine presence of God to the nations and peoples of the world; and to demonstrate the character of the Spirit."
         },
         {
             title: "our mission.",
-            description: "To bring the message of God’s love to college campuses, raising students who know Christ personally, live purposefully, and influence their generation with faith and excellence."
+            description: "To raise generations of men and women who will come into their inheritance and fulfill their God’s given dream."
         }
     ]
     return (

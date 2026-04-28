@@ -14,14 +14,28 @@ interface HeroProps {
 
 const defaultSections = [
   {
-    text: "Oasis is a Christian campus ministry committed to taking the message of Jesus Christ to students across the United States.",
+    text: (
+      <>
+        Oasis is a campus expression of LoveWorld Inc., committed to taking the message of Jesus Christ to students across the United States and beyond.
+        <br />
+        <br />
+        As part of a global ministry founded by Pastor Chris Oyakhilome, Oasis exists to raise a generation of students who live out their faith boldly, grow in the Word, and impact their campuses with the Gospel.
+      </>
+    ),
     image: "/gallery-1.webp",
     alt: "Campus ministry gathering",
     rotate: -5,
     imageKey: "storyImage1" as const,
   },
   {
-    text: "What began as the faith of one man armed with the Word of God and a deep desire to reach young people on his campus has grown into a movement impacting thousands of students across multiple states, campuses, and communities.",
+    text: (
+      <>
+        What began as a passion to reach students with the Gospel has grown into a movement impacting campuses across multiple states and communities.
+        <br />
+        <br />
+        Through intentional evangelism, discipleship, and fellowship, students are equipped to grow spiritually, build meaningful community, and take the message of Jesus Christ to their world.
+      </>
+    ),
     image: "/foundation.webp",
     alt: "The foundation of Oasis ministry",
     rotate: 4,
@@ -43,7 +57,7 @@ function StorySection({
   reverse,
   rotate,
 }: {
-  text: string;
+  text: React.ReactNode;
   image: string;
   alt: string;
   reverse: boolean;
