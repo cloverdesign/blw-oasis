@@ -96,6 +96,21 @@ export const locationType = defineType({
       type: 'url',
       description: 'Optional external link for the arrow button',
     }),
+    defineField({
+      name: 'instagram',
+      title: 'Instagram URL',
+      type: 'url',
+      description: 'Full Instagram profile URL (e.g. https://instagram.com/blwoasis). Powers the "Tap to Connect" button on campus cards.',
+      validation: (Rule) =>
+        Rule.uri({ scheme: ['http', 'https'] }).custom((value) => {
+          if (!value) return true
+          try {
+            return /(?:^|\.)instagram\.com$/i.test(new URL(value).hostname) || 'Must be an instagram.com URL'
+          } catch {
+            return 'Must be a valid URL'
+          }
+        }),
+    }),
   ],
   preview: {
     select: { name: 'name', address: 'address', type: 'type' },
