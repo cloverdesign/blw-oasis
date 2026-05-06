@@ -13,6 +13,7 @@ export interface Location {
   type: 'church' | 'campus'
   universities: string[] | null
   linkUrl: string | null
+  instagram: string | null
 }
 
 const LOCATIONS_QUERY = `*[_type == "location"] | order(name asc) {
@@ -27,7 +28,8 @@ const LOCATIONS_QUERY = `*[_type == "location"] | order(name asc) {
   "image": image { asset->, alt },
   type,
   universities,
-  linkUrl
+  linkUrl,
+  instagram
 }`
 
 export async function getLocations(): Promise<Location[]> {
