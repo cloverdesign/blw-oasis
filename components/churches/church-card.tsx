@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { MapPin } from "lucide-react"
+import { Instagram } from "iconoir-react"
 import { urlFor } from "@/sanity/lib/image"
 import { Button } from "@/components/ui/button"
 import { getCitySubtitle } from "@/lib/utils"
@@ -63,17 +64,31 @@ export function ChurchCard({ location }: { location: Location }) {
                 {location.address && (
                     <p className="text-sm text-muted-foreground">{location.address}</p>
                 )}
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-9 w-fit gap-2 px-2 text-foreground -ml-2"
-                    asChild
-                >
-                    <Link href={mapHref}>
-                        <MapPin className="size-4 shrink-0" aria-hidden />
-                        View on map
-                    </Link>
-                </Button>
+                <div className="flex items-center gap-2">
+                    {location.instagram && (
+                        <Button variant="primary" size="sm" asChild>
+                            <a
+                                href={location.instagram}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`Connect with ${location.name} on Instagram`}
+                            >
+                                <Instagram className="size-4" aria-hidden />
+                                Tap to Connect
+                            </a>
+                        </Button>
+                    )}
+                    <Button
+                        variant="ghost"
+                        size="icon-sm"
+                        aria-label={`View ${location.name} on map`}
+                        asChild
+                    >
+                        <Link href={mapHref}>
+                            <MapPin className="size-4" aria-hidden />
+                        </Link>
+                    </Button>
+                </div>
             </div>
         </div>
     )
